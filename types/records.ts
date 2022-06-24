@@ -22,6 +22,7 @@ export interface Task {
     projectId: string,
     title: string,
     reward: RewardData,
-    instructions: Record<number, string>
+    instructions: Record<number, string>,
+    deadline: number,
 }
 

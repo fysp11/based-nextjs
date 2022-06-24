@@ -1,6 +1,5 @@
 import {
     Box,
-    chakra,
     Container,
     Stack,
     Text,

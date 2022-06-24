@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Image } from '@chakra-ui/react';
 import { Box, Center, Heading, Text, Stack, Avatar, useColorModeValue } from '@chakra-ui/react';
 import { Owner, ProjectCard } from '../types';
 import { useEffect, useState } from 'react';
@@ -35,8 +35,8 @@ export default function ListingCard({ image, title, description, location, owner
                     <Image
                         alt={title}
                         src={image}
-                        layout={'fill'}
-                        priority
+                    // layout={'fill'}
+                    // priority
                     />
                 </Box>
                 <Stack>

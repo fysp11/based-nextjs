@@ -1,4 +1,5 @@
 import { Box, BoxProps, CloseButton, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import NavItem from "../nav/nav-item";
 import { LinkItemProps } from "../types";
 
@@ -9,6 +10,13 @@ interface SidebarContentProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarContentProps) => {
+    const router = useRouter();
+
+    const onSelect = (href: string) => {
+        onClose();
+        router.push(href);
+    }
+
     return (
         <Box
             transition="3s ease"
@@ -26,7 +34,7 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarContentProps) =>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {linkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavItem key={link.name} icon={link.icon} onClick={() => onSelect(link.href)}>
                     {link.name}
                 </NavItem>
             ))}

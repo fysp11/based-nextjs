@@ -5,11 +5,11 @@ import SidebarWithHeader from "./sidebar/sidebar";
 
 
 const linkItems: LinkItemProps[] = [
-    { name: 'Home', icon: FiHome },
-    { name: 'Trending', icon: FiTrendingUp },
-    { name: 'Explore', icon: FiCompass },
-    { name: 'Favourites', icon: FiStar },
-    { name: 'Settings', icon: FiSettings },
+    { name: 'Home', href: '/', icon: FiHome },
+    { name: 'Explore', href: '/projects', icon: FiCompass },
+    // { name: 'Explore', icon: FiTrendingUp },
+    // { name: 'Favourites', icon: FiStar },
+    // { name: 'Settings', icon: FiSettings },
 ];
 
 const Layout = ({ children }: PropsWithChildren) => {

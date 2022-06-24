@@ -1,9 +1,19 @@
 import Image from 'next/image';
 import { Box, Center, Heading, Text, Stack, Avatar, useColorModeValue } from '@chakra-ui/react';
-import { ListingCardProps } from '../types';
+import { Owner, ProjectCard } from '../types';
+import { useEffect, useState } from 'react';
+import { OWNERS_MOCK } from '../mocks';
+import Loading from './loading';
 
 
-export default function ListingCard({ image, title, description, location, owner }: ListingCardProps) {
+export default function ListingCard({ image, title, description, location, ownerId }: ProjectCard) {
+    const [owner, setOwner] = useState<Owner>()
+
+    useEffect(() => {
+        const ownerData = OWNERS_MOCK.find(owner => owner.id === ownerId)
+        setOwner(ownerData)
+    }, [ownerId])
+
     return (
         <Center pb={6}>
             <Box
@@ -47,11 +57,15 @@ export default function ListingCard({ image, title, description, location, owner
                     <Text color={'gray.500'}>{description}</Text>
                 </Stack>
                 <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-                    <Avatar src={owner.image} />
-                    <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-                        <Text fontWeight={600}>{owner.displayName}</Text>
-                        <Text color={'gray.500'}>Since {owner.since}</Text>
-                    </Stack>
+                    {!owner
+                        ? <Loading />
+                        : <>
+                            <Avatar src={owner.image} />
+                            <Stack direction={'column'} spacing={0} fontSize={'sm'}>
+                                <Text fontWeight={600}>{owner.displayName}</Text>
+                                <Text color={'gray.500'}>Since {owner.since}</Text>
+                            </Stack>
+                        </>}
                 </Stack>
             </Box>
         </Center>

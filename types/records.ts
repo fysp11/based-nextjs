@@ -1,4 +1,4 @@
-import { RewardData } from "./data-only"
+import { PositionData, RewardData } from "./data-only"
 
 // Record interfaces
 export interface ProjectCard {
@@ -12,6 +12,7 @@ export interface Project extends ProjectCard {
     longDescription: string,
     features: string[],
     tasks: Task[],
+    positions: PositionData[]
 }
 export interface Owner {
     displayName: string,

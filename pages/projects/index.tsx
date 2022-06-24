@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 
-import { LISTINGS_MOCK } from '../mocks'
-import Loading from '../components/loading'
-import ListingCard from '../components/listing-card'
+import { LISTINGS_MOCK } from '../../mocks'
+import Loading from '../../components/loading'
+import ListingCard from '../../components/listing-card'
 import { Box, SimpleGrid } from '@chakra-ui/react'
-import { ListingCardData } from '../types'
+import { ProjectCard } from '../../types'
 
 
-const ListingsPage = () => {
-    const [listings, setListings] = useState<ListingCardData[]>([])
+export default function ProjectsPage() {
+    const [listings, setListings] = useState<ProjectCard[]>([])
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
@@ -31,5 +31,3 @@ const ListingsPage = () => {
             })}
         </SimpleGrid>
 }
-
-export default ListingsPage;

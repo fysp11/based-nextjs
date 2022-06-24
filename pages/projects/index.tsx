@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react'
 
-import { LISTINGS_MOCK } from '../../mocks'
+import { PROJECTS_CARDS_MOCK } from '../../mocks'
 import Loading from '../../components/loading'
-import ListingCard from '../../components/listing-card'
+import ListingCard from '../../components/project-card'
 import { Box, SimpleGrid } from '@chakra-ui/react'
-import { ProjectCard } from '../../types'
+import { ProjectCard, WithId } from '../../types'
+import Link from 'next/link'
 
 
 export default function ProjectsPage() {
-    const [listings, setListings] = useState<ProjectCard[]>([])
+    const [listings, setListings] = useState<WithId<ProjectCard>[]>([])
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         setIsLoading(true)
         setTimeout(() => {
-            setListings(_ => [...LISTINGS_MOCK])
+            setListings(_ => [...PROJECTS_CARDS_MOCK])
             setIsLoading(false)
         }, 211)
     }, [])
@@ -26,7 +27,11 @@ export default function ProjectsPage() {
             {listings.map(listing => {
                 const { id, ...listingData } = listing;
                 return <Box key={id}>
-                    <ListingCard {...listingData} />
+                    <Link href={`/projects/${id}`}>
+                        <a className="chakra-reset">
+                            <ListingCard {...listingData} />
+                        </a>
+                    </Link>
                 </Box>
             })}
         </SimpleGrid>

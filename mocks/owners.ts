@@ -5,8 +5,8 @@ export const OWNERS_MOCK: WithId<Owner>[] = [
     {
         id: '1',
         image: '/images/avatar.jpeg',
-        displayName: 'Juarez Mendoza',
-        since: 'May 2020',
+        displayName: 'Mada Pinenha',
+        since: 'May 2022',
     },
     {
         id: '2',
@@ -17,7 +17,7 @@ export const OWNERS_MOCK: WithId<Owner>[] = [
     {
         id: '3',
         image: '/images/avatar.jpeg',
-        displayName: 'Juarez Mendoza',
-        since: 'May 2020',
+        displayName: 'Quince Smith',
+        since: 'Dec 2021',
     },
 ]

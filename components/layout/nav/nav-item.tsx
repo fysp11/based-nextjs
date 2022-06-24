@@ -1,6 +1,6 @@
 import { Flex, Icon, Link } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
-import { NavItemProps } from "./types";
+import { NavItemProps } from "../types";
 
 const NavItem = ({ icon, children, ...rest }: PropsWithChildren<NavItemProps>) => {
     return (

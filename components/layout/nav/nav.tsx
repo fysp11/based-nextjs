@@ -3,12 +3,12 @@ import {
     MenuDivider, MenuItem, MenuList, Text, useColorModeValue, VStack
 } from "@chakra-ui/react";
 import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi";
-import ThemeToggleButton from "./theme-toggle-button";
+import ThemeToggleButton from "../theme-toggle-button";
 
-interface MobileNavProps extends FlexProps {
+interface NavProps extends FlexProps {
     onOpen: () => void;
 }
-const MobileNav = ({ onOpen, ...rest }: MobileNavProps) => {
+const Nav = ({ onOpen, ...rest }: NavProps) => {
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -88,4 +88,4 @@ const MobileNav = ({ onOpen, ...rest }: MobileNavProps) => {
     );
 };
 
-export default MobileNav;
+export default Nav;

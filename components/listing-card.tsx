@@ -1,15 +1,9 @@
 import Image from 'next/image';
-import {
-    Box,
-    Center,
-    Heading,
-    Text,
-    Stack,
-    Avatar,
-    useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, Center, Heading, Text, Stack, Avatar, useColorModeValue } from '@chakra-ui/react';
+import { ListingCardProps } from '../types';
 
-export default function ListingCard() {
+
+export default function ListingCard({ image, title, description, location, owner }: ListingCardProps) {
     return (
         <Center pb={6}>
             <Box
@@ -29,8 +23,8 @@ export default function ListingCard() {
                     mb={6}
                     pos={'relative'}>
                     <Image
-                        alt='something'
-                        src={'/images/cardbg.webp'}
+                        alt={title}
+                        src={image}
                         layout={'fill'}
                         priority
                     />
@@ -42,29 +36,21 @@ export default function ListingCard() {
                         fontWeight={800}
                         fontSize={'sm'}
                         letterSpacing={1.1}>
-                        Blog
+                        {location}
                     </Text>
                     <Heading
                         color={useColorModeValue('gray.700', 'white')}
                         fontSize={'2xl'}
                         fontFamily={'body'}>
-                        Boost your conversion rate
+                        {title}
                     </Heading>
-                    <Text color={'gray.500'}>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-                        erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                        et ea rebum.
-                    </Text>
+                    <Text color={'gray.500'}>{description}</Text>
                 </Stack>
                 <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-                    <Avatar
-                        src={'/images/avatar.jpeg'}
-                    // alt={'Author'}
-                    />
+                    <Avatar src={owner.image} />
                     <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-                        <Text fontWeight={600}>Achim Rolle</Text>
-                        <Text color={'gray.500'}>Feb 08, 2021 · 6min read</Text>
+                        <Text fontWeight={600}>{owner.displayName}</Text>
+                        <Text color={'gray.500'}>Since {owner.since}</Text>
                     </Stack>
                 </Stack>
             </Box>

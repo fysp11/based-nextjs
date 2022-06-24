@@ -1,8 +1,8 @@
 import { Box, Drawer, DrawerContent, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
-import MobileNav from "./mobile-nav";
+import MobileNav from "../nav/nav";
 import SidebarContent from "./sidebar-content";
-import { LinkItemProps } from "./types";
+import { LinkItemProps } from "../types";
 
 
 interface SidebarWithHeaderProps {

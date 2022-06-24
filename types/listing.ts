@@ -1,10 +1,18 @@
-export interface ListingNFTData {
-    total: number,
-    available: number,
+interface ListingOwner {
+    displayName: string,
+    since: string,
+    image: string
 }
 
-export interface ListingData {
-    id: string,
+export interface ListingCardProps {
     title: string,
-    nftData: ListingNFTData,
+    description: string,
+    location: string,
+    link: string,
+    image: string,
+    owner: ListingOwner
+}
+
+export interface ListingCardData extends ListingCardProps {
+    id: string
 }

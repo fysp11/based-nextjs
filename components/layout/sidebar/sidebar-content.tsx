@@ -1,6 +1,6 @@
 import { Box, BoxProps, CloseButton, Flex, Text, useColorModeValue } from "@chakra-ui/react";
-import NavItem from "./nav-item";
-import { LinkItemProps } from "./types";
+import NavItem from "../nav/nav-item";
+import { LinkItemProps } from "../types";
 
 
 interface SidebarContentProps extends BoxProps {

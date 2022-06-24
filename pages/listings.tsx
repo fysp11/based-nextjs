@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 
-import { ListingData } from '../types/listing'
-import { LISTINGS_MOCK } from '../mocks/listings'
-import { Loading } from '../components'
+import { LISTINGS_MOCK } from '../mocks'
+import Loading from '../components/loading'
 import ListingCard from '../components/listing-card'
 import { Box, SimpleGrid } from '@chakra-ui/react'
+import { ListingCardData } from '../types'
 
 
 const ListingsPage = () => {
-    const [listings, setListings] = useState<ListingData[]>([])
+    const [listings, setListings] = useState<ListingCardData[]>([])
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
@@ -23,12 +23,12 @@ const ListingsPage = () => {
         ? <Loading />
         :
         <SimpleGrid minChildWidth={400} spacing={10}>
-            {listings.map(listing => (
-
-                <Box key={listing.id}>
-                    <ListingCard />
+            {listings.map(listing => {
+                const { id, ...listingData } = listing;
+                return <Box key={id}>
+                    <ListingCard {...listingData} />
                 </Box>
-            ))}
+            })}
         </SimpleGrid>
 }
 

@@ -11,7 +11,17 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         ownerId: '1',
         longDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi',
         features: [],
-        tasks: []
+        tasks: [],
+        positions: [
+            {
+                title: 'Developer',
+                description: 'Do stuff in the computr'
+            },
+            {
+                title: 'Soil scientist',
+                description: 'Find out the best soil for your plants'
+            }
+        ]
     },
     {
         id: '2',
@@ -22,18 +32,16 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         ownerId: '3',
         longDescription: '',
         features: [],
-        tasks: []
+        tasks: [],
+        positions: [
+            {
+                title: 'Farm manager',
+                description: 'Take care of the farm'
+            },
+            {
+                title: 'Machinery Driver',
+                description: 'Drive the machinery for facilitating the farm'
+            }
+        ]
     },
-    {
-        id: '3',
-        title: 'Raïm de cor',
-        description: 'Little paradise in the shape of a grape farm, surrounded by a green meadow. The challenge is to find the perfect place to relax and enjoy the nature along with learning about permaculture.',
-        location: '',
-        image: '/images/cardbg.webp',
-        ownerId: '1',
-        longDescription: '',
-        features: [],
-        tasks: []
-    },
-
 ]

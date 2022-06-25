@@ -14,20 +14,24 @@ import {
     List,
     ListItem,
     HStack,
+    Wrap,
+    WrapItem,
+    Center,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { MdLocalShipping } from 'react-icons/md';
-import Loading from '../../components/loading';
-import { OWNED_PROJECTS } from '../../mocks';
-import { PROJECTS_MOCK } from '../../mocks/projects';
-import { Project } from '../../types';
+
+import Loading from '../../../components/loading';
+import { NFT_LAYER_OBJECTS, OWNED_PROJECTS, PROJECTS_MOCK } from '../../../mocks';
+
+import { NFTLayer, Project } from '../../../types';
 
 export default function ProjectPage() {
     const { query, push } = useRouter()
     const [data, setData] = useState<Project>();
     const [isLoading, setisLoading] = useState(true);
     const [canAdmin, setCanAdmin] = useState(false);
+    const [nftInfo, setNftInfo] = useState<NFTLayer>();
 
     const color1 = useColorModeValue('gray.900', 'gray.400');
     const color2 = useColorModeValue('gray.200', 'gray.600');
@@ -42,6 +46,7 @@ export default function ProjectPage() {
         setData(projectData);
         setisLoading(false);
         setCanAdmin(OWNED_PROJECTS.includes((query.id as string)));
+        setNftInfo(NFT_LAYER_OBJECTS.find(nft => nft.projectId === query.id));
     }, [query.id]);
 
     return (
@@ -76,7 +81,7 @@ export default function ProjectPage() {
                                     color={color1}
                                     fontWeight={300}
                                     fontSize={'2xl'}>
-                                    [PRICE_CHANGE_THAT]
+                                    {data?.location} - Area: {data?.landArea.amount} {data?.landArea.unit}
                                 </Text>
                             </Box>
                             {canAdmin && <Box w={'auto'}>
@@ -125,19 +130,15 @@ export default function ProjectPage() {
                                     mb={'4'}>
                                     Features
                                 </Text>
-
-                                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                                    <List spacing={2}>
-                                        <ListItem>Chronograph</ListItem>
-                                        <ListItem>Master Chronometer Certified</ListItem>{' '}
-                                        <ListItem>Tachymeter</ListItem>
-                                    </List>
-                                    <List spacing={2}>
-                                        <ListItem>Anti‑magnetic</ListItem>
-                                        <ListItem>Chronometer</ListItem>
-                                        <ListItem>Small seconds</ListItem>
-                                    </List>
-                                </SimpleGrid>
+                                <Wrap spacing={10}>
+                                    {data?.features.map((feature, index) => (
+                                        <WrapItem key={index}>
+                                            <Center w='280px' h='120px' bg='gray.500' pl={5} pt={3} fontSize={20} noOfLines={3}>
+                                                <Text as='em'>{feature}</Text>
+                                            </Center>
+                                        </WrapItem>
+                                    ))}
+                                </Wrap>
                             </Box>
                             <Box>
                                 <Text
@@ -152,46 +153,21 @@ export default function ProjectPage() {
                                 <List spacing={2}>
                                     <ListItem>
                                         <Text as={'span'} fontWeight={'bold'}>
-                                            Between lugs:
+                                            Total Supply:
                                         </Text>{' '}
-                                        20 mm
+                                        {nftInfo?.supply}
                                     </ListItem>
                                     <ListItem>
                                         <Text as={'span'} fontWeight={'bold'}>
-                                            Bracelet:
+                                            Available now:
                                         </Text>{' '}
-                                        leather strap
+                                        {nftInfo?.available}
                                     </ListItem>
                                     <ListItem>
                                         <Text as={'span'} fontWeight={'bold'}>
-                                            Case:
+                                            Unit Area:
                                         </Text>{' '}
-                                        Steel
-                                    </ListItem>
-                                    <ListItem>
-                                        <Text as={'span'} fontWeight={'bold'}>
-                                            Case diameter:
-                                        </Text>{' '}
-                                        42 mm
-                                    </ListItem>
-                                    <ListItem>
-                                        <Text as={'span'} fontWeight={'bold'}>
-                                            Dial color:
-                                        </Text>{' '}
-                                        Black
-                                    </ListItem>
-                                    <ListItem>
-                                        <Text as={'span'} fontWeight={'bold'}>
-                                            Crystal:
-                                        </Text>{' '}
-                                        Domed, scratch‑resistant sapphire crystal with anti‑reflective
-                                        treatment inside
-                                    </ListItem>
-                                    <ListItem>
-                                        <Text as={'span'} fontWeight={'bold'}>
-                                            Water resistance:
-                                        </Text>{' '}
-                                        5 bar (50 metres / 167 feet){' '}
+                                        {nftInfo?.landArea.amount} {nftInfo?.landArea.unit}
                                     </ListItem>
                                 </List>
                             </Box>
@@ -206,17 +182,13 @@ export default function ProjectPage() {
                             bg={color5}
                             color={color6}
                             textTransform={'uppercase'}
+                            onClick={() => push(`/projects/${query.id}/nf   t`)}
                             _hover={{
                                 transform: 'translateY(2px)',
                                 boxShadow: 'lg',
                             }}>
-                            Add to cart
+                            Commit & Support
                         </Button>
-
-                        <Stack direction="row" alignItems="center" justifyContent={'center'}>
-                            <MdLocalShipping />
-                            <Text>2-3 business days delivery</Text>
-                        </Stack>
                     </Stack>
                 </SimpleGrid>
             </Container>

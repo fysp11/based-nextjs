@@ -15,7 +15,8 @@ export interface Project extends ProjectCard {
     positions: PositionData[]
 }
 export interface NFTLayer {
-    landUnitArea: LandArea,
+    projectId: string,
+    landArea: LandArea,
     supply: number,
     available: number,
 }

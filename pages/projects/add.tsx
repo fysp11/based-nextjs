@@ -12,7 +12,8 @@ export default function SignupCard() {
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [location, setLocation] = useState<string>('');
-    const [image, setImage] = useState<string>('/images/cardbg.webp');
+    const [image, setImage] = useState<string>('/images/projects/5.jpg');
+    const [logo, setLogo] = useState<string>('/images/logos/5.jpg');
     const [features, setFeatures] = useState<string[]>(['']);
     const [positions, setPositions] = useState<PositionData[]>(['']);
     const [canSubmit, setCanSubmit] = useState<boolean>(false);
@@ -25,6 +26,7 @@ export default function SignupCard() {
         features: false,
         positions: false,
         image: false,
+        logo: false,
         landArea: false
     })
 
@@ -68,12 +70,13 @@ export default function SignupCard() {
             description: !!description?.trim(),
             location: !!location?.trim(),
             image: !!image?.trim(),
+            logo: !!logo?.trim(),
             features: filterEmpties(features).length > 0,
             positions: filterEmpties(positions).length > 0,
             landArea: +(landArea?.amount!) > 0 && Object(AreaUnit).hasOwnProperty(landArea?.unit!)
         }
         setValidation(newValidation);
-    }, [title, description, location, image, features, positions, landArea])
+    }, [title, description, location, image, logo, features, positions, landArea])
 
     useEffect(() => {
         setCanSubmit(Object.values(validation).every(v => v))
@@ -129,6 +132,10 @@ export default function SignupCard() {
                         <FormControl id="image" isRequired>
                             <FormLabel>Image (URL)</FormLabel>
                             <Input type="text" value={image} onChange={(e) => handleChange(e, 'image')} />
+                        </FormControl>
+                        <FormControl id="logo" isRequired>
+                            <FormLabel>Logo (URL)</FormLabel>
+                            <Input type="text" value={image} onChange={(e) => handleChange(e, 'logo')} />
                         </FormControl>
                         <VStack spacing={10} pt={2}>
                             <FormControl id="features" isRequired>

@@ -29,3 +29,9 @@ export interface Task {
     deadline: number,
 }
 
+export interface ProjectCommitment {
+    projectId: string,
+    committedAmount: number,
+    position?: string,
+}
+

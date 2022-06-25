@@ -14,7 +14,7 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         image: '/images/projects/1.jpg',
         logo: '/images/logos/1.jpg',
         ownerId: '1',
-        features: [],
+        features: ['Accommodation and food provided', 'lake nearby for swimming', 'current food forest with seasonally available fresh produce'],
         tasks: [],
         positions: ['Developer', 'Soil scientist']
     },

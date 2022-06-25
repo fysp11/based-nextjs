@@ -1,30 +1,16 @@
 import { WithId, ProjectCard } from "../types";
+import { PROJECTS_MOCK } from "./projects";
 
 
-export const PROJECTS_CARDS_MOCK: WithId<ProjectCard>[] = [
-    {
-        id: '1',
-        title: 'Raïm de cor',
-        description: 'Little paradise in the shape of a grape farm, surrounded by a green meadow. The challenge is to find the perfect place to relax and enjoy the nature along with learning about permaculture.',
-        location: '',
-        image: '/images/cardbg.webp',
-        ownerId: '1'
-    },
-    {
-        id: '2',
-        title: 'Raïm de cor',
-        description: 'Little paradise in the shape of a grape farm, surrounded by a green meadow. The challenge is to find the perfect place to relax and enjoy the nature along with learning about permaculture.',
-        location: '',
-        image: '/images/cardbg.webp',
-        ownerId: '3'
-    },
-    {
-        id: '3',
-        title: 'Raïm de cor',
-        description: 'Little paradise in the shape of a grape farm, surrounded by a green meadow. The challenge is to find the perfect place to relax and enjoy the nature along with learning about permaculture.',
-        location: '',
-        image: '/images/cardbg.webp',
-        ownerId: '1'
-    },
-
-]
+export const PROJECTS_CARDS_MOCK: WithId<ProjectCard>[] = PROJECTS_MOCK.map(project => {
+    const newprojectCard: WithId<ProjectCard> = {
+        id: project.id,
+        title: project.title,
+        description: project.description,
+        location: project.location,
+        image: project.image,
+        ownerId: project.ownerId,
+        landArea: project.landArea,
+    }
+    return newprojectCard
+})

@@ -13,18 +13,21 @@ import {
     useColorModeValue,
     List,
     ListItem,
+    HStack,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { MdLocalShipping } from 'react-icons/md';
 import Loading from '../../components/loading';
+import { OWNED_PROJECTS } from '../../mocks';
 import { PROJECTS_MOCK } from '../../mocks/projects';
 import { Project } from '../../types';
 
 export default function ProjectPage() {
-    const { query } = useRouter()
+    const { query, push } = useRouter()
     const [data, setData] = useState<Project>();
     const [isLoading, setisLoading] = useState(true);
+    const [canAdmin, setCanAdmin] = useState(false);
 
     const color1 = useColorModeValue('gray.900', 'gray.400');
     const color2 = useColorModeValue('gray.200', 'gray.600');
@@ -38,6 +41,7 @@ export default function ProjectPage() {
         const projectData = PROJECTS_MOCK.find(project => project.id === query.id);
         setData(projectData);
         setisLoading(false);
+        setCanAdmin(OWNED_PROJECTS.includes((query.id as string)));
     }, [query.id]);
 
     return (
@@ -60,20 +64,41 @@ export default function ProjectPage() {
                         />
                     </Flex>
                     <Stack spacing={{ base: 6, md: 10 }}>
-                        <Box as={'header'}>
-                            <Heading
-                                lineHeight={1.1}
-                                fontWeight={600}
-                                fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-                                {data?.title}
-                            </Heading>
-                            <Text
-                                color={color1}
-                                fontWeight={300}
-                                fontSize={'2xl'}>
-                                [PRICE_CHANGE_THAT]
-                            </Text>
-                        </Box>
+                        <HStack>
+                            <Box as={'header'}>
+                                <Heading
+                                    lineHeight={1.1}
+                                    fontWeight={600}
+                                    fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
+                                    {data?.title}
+                                </Heading>
+                                <Text
+                                    color={color1}
+                                    fontWeight={300}
+                                    fontSize={'2xl'}>
+                                    [PRICE_CHANGE_THAT]
+                                </Text>
+                            </Box>
+                            {canAdmin && <Box w={'auto'}>
+                                <Button
+                                    ml={'100%'}
+                                    rounded={'none'}
+                                    w={'full'}
+                                    mt={8}
+                                    size={'lg'}
+                                    py={'7'}
+                                    bg={color5}
+                                    color={color6}
+                                    textTransform={'uppercase'}
+                                    onClick={() => push(`/admin/projects/${query.id}/nft`)}
+                                    _hover={{
+                                        transform: 'translateY(2px)',
+                                        boxShadow: 'lg',
+                                    }}>
+                                    Admin NFT
+                                </Button>
+                            </Box>}
+                        </HStack>
 
                         <Stack
                             spacing={{ base: 4, sm: 6 }}

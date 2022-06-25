@@ -6,7 +6,6 @@ export interface ProjectCard {
     location: string,
     image: string,
     logo: string,
-    ownerId: string,
     landArea: LandArea
 }
 export interface Project extends ProjectCard {

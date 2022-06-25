@@ -1,16 +1,19 @@
-import { Text, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Center, chakra, Flex, SimpleGrid, Button, useColorModeValue } from '@chakra-ui/react';
+import {
+  Text, Accordion, AccordionButton, AccordionIcon, AccordionItem,
+  AccordionPanel, Box, Center, chakra, Flex, Button, useColorModeValue
+} from '@chakra-ui/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { BsPerson } from 'react-icons/bs';
-import { FiServer } from 'react-icons/fi';
-import { GoLocation } from 'react-icons/go';
+import { useContext, useEffect, useState } from 'react';
 
-import StatsCard from '../components/stats-card';
+import { DBContext } from '../contexts';
 import { OWNED_PROJECTS, PROJECTS_MOCK } from '../mocks';
 import { Project, WithId } from '../types';
 
 export default function Dashboard() {
+  const { commitments } = useContext(DBContext);
+
   const [myProjects, setMyProjects] = useState<WithId<Project>[]>([]);
+  const [committedProjects, setCommittedProjects] = useState<Record<string, WithId<Project>>>({});
   const bgColor = useColorModeValue('gray.900', 'white');
   const textColor = useColorModeValue('white', 'gray.900');
 
@@ -18,17 +21,29 @@ export default function Dashboard() {
     const projects = PROJECTS_MOCK.filter((project) => OWNED_PROJECTS.includes(project.id));
     setMyProjects(() => projects);
   }, [])
+
+  useEffect(() => {
+    const projects = PROJECTS_MOCK.filter((project) => commitments.map(c => c.projectId).includes(project.id));
+    setCommittedProjects(() => {
+      const map: Record<string, WithId<Project>> = {};
+      projects.forEach((project) => {
+        map[project.id] = project;
+      }
+      );
+      return map;
+    });
+  }, [commitments])
+
   return (
     <Center>
       <Flex direction="column" maxW={'4xl'}>
-
-        <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+        <Box w={['100%', 500, 550, 700, 900]} mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
           <chakra.h1
             textAlign={'center'}
             fontSize={'4xl'}
             py={10}
             fontWeight={'bold'}>
-            How are my Projects going?
+            My Projects
           </chakra.h1>
           <Accordion defaultIndex={[0]} allowMultiple minW={'100%'}>
             {myProjects.map((project, index) => (
@@ -43,12 +58,16 @@ export default function Dashboard() {
                   </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                  <Text fontWeight={600}>
-                    Land Area: {project.landArea.amount} {project.landArea.unit}
-                  </Text>
-                  <Text>
-                    {project.description}
-                  </Text>
+                  <Box mb={2}>
+                    <Text fontWeight={600}>
+                      Land Area: {project.landArea.amount} {project.landArea.unit}
+                    </Text>
+                  </Box>
+                  <Box mb={2}>
+                    <Text>
+                      {project.description}
+                    </Text>
+                  </Box>
                   <Link href={`/projects/${project.id}`}>
                     <Button bg={bgColor} color={textColor}>Open</Button>
                   </Link>
@@ -58,46 +77,41 @@ export default function Dashboard() {
           </Accordion>
         </Box>
 
-        <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
-          <chakra.h1
-            textAlign={'center'}
-            fontSize={'4xl'}
-            py={10}
-            fontWeight={'bold'}>
-            How are my Projects going?
-          </chakra.h1>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-            <StatsCard title={'We serve'} stat={'50,000 people'} />
-            <StatsCard title={'In'} stat={'30 different countries'} />
-            <StatsCard title={'Who speak'} stat={'100 different languages'} />
-          </SimpleGrid>
-        </Box>
-        <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
-          <chakra.h1
-            textAlign={'center'}
-            fontSize={'4xl'}
-            py={10}
-            fontWeight={'bold'}>
-            Platform Stats
-          </chakra.h1>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-            <StatsCard
-              title={'Users'}
-              stat={'5,000'}
-              icon={<BsPerson size={'3em'} />}
-            />
-            <StatsCard
-              title={'Servers'}
-              stat={'1,000'}
-              icon={<FiServer size={'3em'} />}
-            />
-            <StatsCard
-              title={'Datacenters'}
-              stat={'7'}
-              icon={<GoLocation size={'3em'} />}
-            />
-          </SimpleGrid>
-        </Box>
+        {commitments.length > 0
+          && <Box w={['100%', 500, 550, 700, 900]} mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+            <chakra.h1
+              textAlign={'center'}
+              fontSize={'4xl'}
+              py={10}
+              fontWeight={'bold'}>
+              My Commitments
+            </chakra.h1>
+            <Accordion defaultIndex={[0]} allowMultiple minW={'100%'}>
+              {commitments.map((commitment, index) => {
+                const comittedProject = committedProjects[commitment.projectId];
+                return comittedProject && <AccordionItem key={index}>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex='1' textAlign='left'>
+                        {comittedProject.title} - {comittedProject.location}
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    <Box>
+                      <Text>
+                        Position: {commitment.position}
+                      </Text>
+                    </Box>
+                    <Text>
+                      Committed amount: {commitment.committedAmount}
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+              })}
+            </Accordion>
+          </Box>}
       </Flex>
     </Center>
   )

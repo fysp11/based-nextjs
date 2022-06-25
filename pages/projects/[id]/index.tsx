@@ -19,15 +19,18 @@ import {
     Center,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Loading from '../../../components/loading';
+import { DBContext } from '../../../contexts';
 import { NFT_LAYER_OBJECTS, OWNED_PROJECTS, PROJECTS_MOCK } from '../../../mocks';
 
 import { NFTLayer, Project } from '../../../types';
 
 export default function ProjectPage() {
     const { query, push } = useRouter()
+    const { projects } = useContext(DBContext)
+
     const [data, setData] = useState<Project>();
     const [isLoading, setisLoading] = useState(true);
     const [canAdmin, setCanAdmin] = useState(false);
@@ -42,12 +45,12 @@ export default function ProjectPage() {
 
     useEffect(() => {
         setisLoading(true);
-        const projectData = PROJECTS_MOCK.find(project => project.id === query.id);
+        const projectData = projects.find(project => project.id === query.id);
         setData(projectData);
         setisLoading(false);
         setCanAdmin(OWNED_PROJECTS.includes((query.id as string)));
         setNftInfo(NFT_LAYER_OBJECTS.find(nft => nft.projectId === query.id));
-    }, [query.id]);
+    }, [query.id, projects]);
 
     return (
         isLoading
@@ -69,41 +72,37 @@ export default function ProjectPage() {
                         />
                     </Flex>
                     <Stack spacing={{ base: 6, md: 10 }}>
-                        <HStack>
-                            <Box as={'header'}>
-                                <Heading
-                                    lineHeight={1.1}
-                                    fontWeight={600}
-                                    fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-                                    {data?.title}
-                                </Heading>
-                                <Text
-                                    color={color1}
-                                    fontWeight={300}
-                                    fontSize={'2xl'}>
-                                    {data?.location} - Area: {data?.landArea.amount} {data?.landArea.unit}
-                                </Text>
-                            </Box>
-                            {canAdmin && <Box w={'auto'}>
-                                <Button
-                                    ml={'100%'}
-                                    rounded={'none'}
-                                    w={'full'}
-                                    mt={8}
-                                    size={'lg'}
-                                    py={'7'}
-                                    bg={color5}
-                                    color={color6}
-                                    textTransform={'uppercase'}
-                                    onClick={() => push(`/admin/projects/${query.id}/nft`)}
-                                    _hover={{
-                                        transform: 'translateY(2px)',
-                                        boxShadow: 'lg',
-                                    }}>
-                                    Admin NFT
-                                </Button>
-                            </Box>}
-                        </HStack>
+                        <Box as={'header'}>
+                            <Heading
+                                lineHeight={1.1}
+                                fontWeight={600}
+                                fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
+                                {data?.title}
+                            </Heading>
+                            <Text
+                                color={color1}
+                                fontWeight={300}
+                                fontSize={'2xl'}>
+                                {data?.location} - Area: {data?.landArea.amount} {data?.landArea.unit}
+                            </Text>
+                        </Box>
+                        {canAdmin && <Box w={'auto'}>
+                            <Button
+                                // ml={'100%'}
+                                rounded={'none'}
+                                w={'full'}
+                                size={'lg'}
+                                bg={color5}
+                                color={color6}
+                                textTransform={'uppercase'}
+                                onClick={() => push(`/admin/projects/${query.id}/nft`)}
+                                _hover={{
+                                    transform: 'translateY(2px)',
+                                    boxShadow: 'lg',
+                                }}>
+                                Admin NFT
+                            </Button>
+                        </Box>}
 
                         <Stack
                             spacing={{ base: 4, sm: 6 }}
@@ -173,7 +172,7 @@ export default function ProjectPage() {
                             </Box>
                         </Stack>
 
-                        <Button
+                        {!canAdmin && <Button
                             rounded={'none'}
                             w={'full'}
                             mt={8}
@@ -182,13 +181,13 @@ export default function ProjectPage() {
                             bg={color5}
                             color={color6}
                             textTransform={'uppercase'}
-                            onClick={() => push(`/projects/${query.id}/nf   t`)}
+                            onClick={() => push(`/projects/${query.id}/nft`)}
                             _hover={{
                                 transform: 'translateY(2px)',
                                 boxShadow: 'lg',
                             }}>
                             Commit & Support
-                        </Button>
+                        </Button>}
                     </Stack>
                 </SimpleGrid>
             </Container>

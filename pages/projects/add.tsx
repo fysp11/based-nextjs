@@ -1,23 +1,30 @@
 import {
     Flex, Box, FormControl, FormLabel, Input, InputGroup, Stack, Button,
-    Heading, useColorModeValue, Textarea, VStack, InputLeftAddon, HStack, Select,
+    Heading, useColorModeValue, Textarea, VStack, InputLeftAddon, HStack, Select, Link,
 } from '@chakra-ui/react';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { AreaUnit, LandArea, PositionData, Project } from '../../types';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+
+import { AreaUnit, LandArea, PositionData, Project, WithId } from '../../types';
 import { filterEmpties, handleNewItem } from '../../lib/helpers';
+import { NEW_PROJECT_MOCK } from '../../mocks';
+import { DBContext } from '../../contexts';
+import { useRouter } from 'next/router';
 
 type ProjectValidation = Record<keyof Omit<Project, 'ownerId' | 'tasks'>, boolean>;
 
 export default function SignupCard() {
-    const [title, setTitle] = useState<string>('');
-    const [description, setDescription] = useState<string>('');
-    const [location, setLocation] = useState<string>('');
-    const [image, setImage] = useState<string>('/images/projects/5.jpg');
-    const [logo, setLogo] = useState<string>('/images/logos/5.jpg');
-    const [features, setFeatures] = useState<string[]>(['']);
-    const [positions, setPositions] = useState<PositionData[]>(['']);
+    const { push } = useRouter()
+    const { addProject } = useContext(DBContext)
+
+    const [title, setTitle] = useState<string>(NEW_PROJECT_MOCK.title);
+    const [description, setDescription] = useState<string>(NEW_PROJECT_MOCK.description);
+    const [location, setLocation] = useState<string>(NEW_PROJECT_MOCK.location);
+    const [image, setImage] = useState<string>(NEW_PROJECT_MOCK.image);
+    const [logo, setLogo] = useState<string>(NEW_PROJECT_MOCK.logo);
+    const [features, setFeatures] = useState<string[]>([...NEW_PROJECT_MOCK.features]);
+    const [positions, setPositions] = useState<PositionData[]>([...NEW_PROJECT_MOCK.positions]);
     const [canSubmit, setCanSubmit] = useState<boolean>(false);
-    const [landArea, setLandArea] = useState<Partial<LandArea>>({ amount: 0, unit: AreaUnit.Meter });
+    const [landArea, setLandArea] = useState<LandArea>(NEW_PROJECT_MOCK.landArea);
 
     const [validation, setValidation] = useState<ProjectValidation>({
         title: false,
@@ -45,6 +52,9 @@ export default function SignupCard() {
             case 'image':
                 setImage(value);
                 break;
+            case 'logo':
+                setLogo(value);
+                break;
             case 'features':
                 handleNewItem((indexOrProp! as number), value, setFeatures)
                 break;
@@ -64,6 +74,23 @@ export default function SignupCard() {
         }
     }
 
+    const handleSubmit = () => {
+        const newProject: WithId<Project> = {
+            id: NEW_PROJECT_MOCK.id,
+            description,
+            features,
+            image,
+            landArea,
+            location,
+            logo,
+            positions,
+            tasks: [],
+            title
+        }
+        addProject(newProject)
+        push(`/projects/${NEW_PROJECT_MOCK.id}`)
+    }
+
     useEffect(() => {
         const newValidation: ProjectValidation = {
             title: !!title?.trim(),
@@ -73,7 +100,7 @@ export default function SignupCard() {
             logo: !!logo?.trim(),
             features: filterEmpties(features).length > 0,
             positions: filterEmpties(positions).length > 0,
-            landArea: +(landArea?.amount!) > 0 && Object(AreaUnit).hasOwnProperty(landArea?.unit!)
+            landArea: +(landArea?.amount!) > 0 && Object.values(AreaUnit).includes(landArea?.unit!)
         }
         setValidation(newValidation);
     }, [title, description, location, image, logo, features, positions, landArea])
@@ -176,6 +203,7 @@ export default function SignupCard() {
                                 size="lg"
                                 bg={'blue.400'}
                                 color={'white'}
+                                onClick={() => handleSubmit()}
                                 _hover={{
                                     bg: 'blue.500',
                                 }}>
@@ -186,5 +214,6 @@ export default function SignupCard() {
                 </Box>
             </Stack >
         </Flex >
+
     );
 }

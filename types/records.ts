@@ -9,7 +9,6 @@ export interface ProjectCard {
     ownerId: string
 }
 export interface Project extends ProjectCard {
-    longDescription: string,
     features: string[],
     tasks: Task[],
     positions: PositionData[]

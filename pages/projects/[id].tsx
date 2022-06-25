@@ -90,9 +90,6 @@ export default function ProjectPage() {
                                     fontWeight={'300'}>
                                     {data?.description}
                                 </Text>
-                                <Text fontSize={'lg'}>
-                                    {data?.longDescription}
-                                </Text>
                             </VStack>
                             <Box>
                                 <Text

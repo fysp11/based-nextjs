@@ -9,6 +9,7 @@ export const PROJECTS_CARDS_MOCK: WithId<ProjectCard>[] = PROJECTS_MOCK.map(proj
         description: project.description,
         location: project.location,
         image: project.image,
+        logo: project.logo,
         ownerId: project.ownerId,
         landArea: project.landArea,
     }

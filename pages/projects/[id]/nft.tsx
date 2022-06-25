@@ -11,10 +11,10 @@ export default function SignupCard() {
     const { query } = useRouter()
 
     const [commitAmount, setCommitAmount] = useState<number>(0);
+    const [commitPosition, setCommitPosition] = useState<string>('');
     const [project, setProject] = useState<WithId<Project>>();
     const [nftLayer, setNftLayer] = useState<NFTLayer>();
 
-    const [canSubmit, setCanSubmit] = useState<boolean>(false);
     const [isValid, setIsValid] = useState<boolean>(false)
 
     const bgColor = useColorModeValue('white', 'gray.700')
@@ -30,9 +30,10 @@ export default function SignupCard() {
     }
 
     useEffect(() => {
-        const valid = !!commitAmount && commitAmount <= nftLayer?.available!
-        setIsValid(valid);
-    }, [commitAmount, nftLayer?.available])
+        const validAmount = !!commitAmount && commitAmount <= nftLayer?.available!
+        const validPosition = !!commitPosition && project?.positions.includes(commitPosition)
+        setIsValid(!!(validAmount && validPosition));
+    }, [commitAmount, commitPosition, nftLayer?.available, project?.positions])
 
     useEffect(() => {
         setProject(() => PROJECTS_MOCK.find(project => project.id === query.id));
@@ -76,23 +77,15 @@ export default function SignupCard() {
                                 />
                             </FormControl>
 
-                            {/* <FormControl id="landArea" isRequired>
-                            <HStack>
-                                <Box w={'100%'}>
-                                    <FormLabel>NFT Unit Area (Amount)</FormLabel>
-                                    <Input type="number" min={1} value={landArea?.amount} onChange={(e) => handleChange(e, 'landArea', 'amount')} />
-                                </Box>
-                                <Box w={'100%'}>
-                                    <FormControl id="lastName">
-                                        <FormLabel>Land Area (Unit)</FormLabel>
-                                        <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
-                                            <option value={AreaUnit.Meter}>Meter</option>
-                                            <option value={AreaUnit.Hectare}>Hectare</option>
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                            </HStack>
-                        </FormControl> */}
+                            <FormControl id="position">
+                                <FormLabel>Land Area (Unit)</FormLabel>
+                                <Select placeholder='Select option' value={commitPosition} onChange={(e) => setCommitPosition(e.target.value)}>
+                                    {project?.positions.map(position => (
+                                        <option key={position} value={position}>{position}</option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+
                             <Stack spacing={10} pt={2}>
                                 <Button
                                     loadingText="Submitting"

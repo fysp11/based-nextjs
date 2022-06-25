@@ -42,7 +42,7 @@ export default function Dashboard() {
                     <AccordionIcon />
                   </AccordionButton>
                 </h2>
-                <AccordionPanel pb={4}>
+                <AccordionPanel pb={4} >
                   <Text fontWeight={600}>
                     Land Area: {project.landArea.amount} {project.landArea.unit}
                   </Text>
@@ -50,7 +50,7 @@ export default function Dashboard() {
                     {project.description}
                   </Text>
                   <Link href={`/projects/${project.id}`}>
-                    <Button bg={bgColor} color={textColor}>Open</Button>
+                    <Button mt={2} size='sm' bg={bgColor} color={textColor}>Open</Button>
                   </Link>
                 </AccordionPanel>
               </AccordionItem>

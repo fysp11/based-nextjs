@@ -111,13 +111,11 @@ export default function SignupCard() {
                                     <Input type="number" min={1} value={landArea?.amount} onChange={(e) => handleChange(e, 'landArea', 'amount')} />
                                 </Box>
                                 <Box w={'100%'}>
-                                    <FormControl id="lastName">
-                                        <FormLabel>Land Area (Unit)</FormLabel>
-                                        <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
-                                            <option value={AreaUnit.Meter}>Meter</option>
-                                            <option value={AreaUnit.Hectare}>Hectare</option>
-                                        </Select>
-                                    </FormControl>
+                                    <FormLabel>Land Area (Unit)</FormLabel>
+                                    <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
+                                        <option value={AreaUnit.Meter}>Meter</option>
+                                        <option value={AreaUnit.Hectare}>Hectare</option>
+                                    </Select>
                                 </Box>
                             </HStack>
                         </FormControl>

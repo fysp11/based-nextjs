@@ -182,7 +182,7 @@ export default function ProjectPage() {
                             bg={color5}
                             color={color6}
                             textTransform={'uppercase'}
-                            onClick={() => push(`/projects/${query.id}/nf   t`)}
+                            onClick={() => push(`/projects/${query.id}/nft`)}
                             _hover={{
                                 transform: 'translateY(2px)',
                                 boxShadow: 'lg',

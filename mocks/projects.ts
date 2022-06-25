@@ -9,19 +9,9 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         location: '',
         image: '/images/cardbg.webp',
         ownerId: '1',
-        longDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi nisi euismod nisi. Nullam euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod consectetur nisi',
         features: [],
         tasks: [],
-        positions: [
-            {
-                title: 'Developer',
-                description: 'Do stuff in the computr'
-            },
-            {
-                title: 'Soil scientist',
-                description: 'Find out the best soil for your plants'
-            }
-        ]
+        positions: ['Developer', 'Soil scientist']
     },
     {
         id: '2',
@@ -30,18 +20,8 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         location: '',
         image: '/images/cardbg.webp',
         ownerId: '3',
-        longDescription: '',
         features: [],
         tasks: [],
-        positions: [
-            {
-                title: 'Farm manager',
-                description: 'Take care of the farm'
-            },
-            {
-                title: 'Machinery Driver',
-                description: 'Drive the machinery for facilitating the farm'
-            }
-        ]
+        positions: ['Farm manager', 'Machinery Driver']
     },
 ]

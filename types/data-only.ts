@@ -4,7 +4,4 @@ export interface RewardData {
     resource: string,
 }
 
-export interface PositionData {
-    title: string,
-    description: string,
-}
+export type PositionData = string;

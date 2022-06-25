@@ -8,7 +8,6 @@ import StatsCard from '../components/stats-card';
 export default function Dashboard() {
   return (
     <Center>
-
       <Flex direction="column" maxW={'4xl'}>
 
         <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
@@ -17,7 +16,7 @@ export default function Dashboard() {
             fontSize={'4xl'}
             py={10}
             fontWeight={'bold'}>
-            What is our company doing?
+            How are my Projects going?
           </chakra.h1>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
             <StatsCard title={'We serve'} stat={'50,000 people'} />
@@ -31,7 +30,7 @@ export default function Dashboard() {
             fontSize={'4xl'}
             py={10}
             fontWeight={'bold'}>
-            Our company is expanding, you could be too.
+            Platform Stats
           </chakra.h1>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
             <StatsCard

@@ -1,17 +1,22 @@
-import { PositionData, RewardData } from "./data-only"
+import { LandArea, PositionData, RewardData } from "./data-only"
 
-// Record interfaces
 export interface ProjectCard {
     title: string,
     description: string,
     location: string,
     image: string,
-    ownerId: string
+    ownerId: string,
+    landArea: LandArea
 }
 export interface Project extends ProjectCard {
     features: string[],
     tasks: Task[],
     positions: PositionData[]
+}
+export interface NFTLayer {
+    landUnitArea: LandArea,
+    supply: number,
+    available: number,
 }
 export interface Owner {
     displayName: string,

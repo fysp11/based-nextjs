@@ -12,9 +12,11 @@ import {
     Textarea,
     VStack,
     InputLeftAddon,
+    HStack,
+    Select,
 } from '@chakra-ui/react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { PositionData, Project } from '../../types';
+import { AreaUnit, LandArea, PositionData, Project } from '../../types';
 import { filterEmpties, handleNewItem } from '../../lib/helpers';
 
 type ProjectValidation = Record<keyof Omit<Project, 'ownerId' | 'tasks'>, boolean>;
@@ -26,6 +28,8 @@ export default function SignupCard() {
     const [image, setImage] = useState<string>('/images/cardbg.webp');
     const [features, setFeatures] = useState<string[]>(['']);
     const [positions, setPositions] = useState<PositionData[]>(['']);
+    const [canSubmit, setCanSubmit] = useState<boolean>(false);
+    const [landArea, setLandArea] = useState<Partial<LandArea>>({ amount: 0, unit: AreaUnit.Meter });
 
     const [validation, setValidation] = useState<ProjectValidation>({
         title: false,
@@ -34,9 +38,10 @@ export default function SignupCard() {
         features: false,
         positions: false,
         image: false,
+        landArea: false
     })
 
-    const handleChange = (element: ChangeEvent<unknown>, prop: keyof ProjectValidation, index?: number) => {
+    const handleChange = (element: ChangeEvent<unknown>, prop: keyof ProjectValidation, indexOrProp?: number | string) => {
         const value = (element as ChangeEvent<HTMLInputElement>).target.value;
         switch (prop) {
             case 'title':
@@ -52,10 +57,18 @@ export default function SignupCard() {
                 setImage(value);
                 break;
             case 'features':
-                handleNewItem(index!, value, setFeatures)
+                handleNewItem((indexOrProp! as number), value, setFeatures)
                 break;
             case 'positions':
-                handleNewItem(index!, value, setPositions)
+                handleNewItem((indexOrProp! as number), value, setPositions)
+                break;
+            case 'landArea':
+                setLandArea(currentData => {
+                    return {
+                        ...(currentData || {}),
+                        [indexOrProp as keyof LandArea]: value
+                    }
+                });
                 break;
             default:
                 break;
@@ -70,19 +83,23 @@ export default function SignupCard() {
             image: !!image?.trim(),
             features: filterEmpties(features).length > 0,
             positions: filterEmpties(positions).length > 0,
+            landArea: +(landArea?.amount!) > 0 && Object(AreaUnit).hasOwnProperty(landArea?.unit!)
         }
-        console.log(Array.from(new Set(Object.values(newValidation))));
+        console.log(newValidation);
         setValidation(newValidation);
-    }, [title, description, location, image, features, positions])
+    }, [title, description, location, image, features, positions, landArea])
+
+    useEffect(() => {
+        setCanSubmit(Object.values(validation).every(v => v))
+    }, [validation])
 
     return (
         <Flex
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            // maxW={'5xl'}
-            minW={'4xl'}>
-            <Stack spacing={8} mx={'auto'} maxW={'5xl'}>
+        >
+            <Stack spacing={8} w={['100%', 500, 500, 800]}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
                         Add a new Project
@@ -92,12 +109,28 @@ export default function SignupCard() {
                     rounded={'lg'}
                     bg={useColorModeValue('white', 'gray.700')}
                     boxShadow={'lg'}
-                    minW={{ md: '2xl', sm: 'md' }}
                     p={8}>
-                    <Stack spacing={4} >
+                    <Stack spacing={4}>
                         <FormControl id="title" isRequired>
                             <FormLabel>Title</FormLabel>
                             <Input type="text" max={100} value={title} onChange={(e) => handleChange(e, 'title')} />
+                        </FormControl>
+                        <FormControl id="landArea" isRequired>
+                            <HStack>
+                                <Box w={'100%'}>
+                                    <FormLabel>Land Area (Amount)</FormLabel>
+                                    <Input type="number" min={1} value={landArea?.amount} onChange={(e) => handleChange(e, 'landArea', 'amount')} />
+                                </Box>
+                                <Box w={'100%'}>
+                                    <FormControl id="lastName">
+                                        <FormLabel>Land Area (Unit)</FormLabel>
+                                        <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
+                                            <option value={AreaUnit.Meter}>Meter</option>
+                                            <option value={AreaUnit.Hectare}>Hectare</option>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </HStack>
                         </FormControl>
                         <FormControl id="location" isRequired>
                             <FormLabel>Location</FormLabel>
@@ -146,13 +179,14 @@ export default function SignupCard() {
                         <Stack spacing={10} pt={2}>
                             <Button
                                 loadingText="Submitting"
+                                disabled={!canSubmit}
                                 size="lg"
                                 bg={'blue.400'}
                                 color={'white'}
                                 _hover={{
                                     bg: 'blue.500',
                                 }}>
-                                Submit
+                                {!canSubmit && 'Complete and '}Submit
                             </Button>
                         </Stack>
                     </Stack>

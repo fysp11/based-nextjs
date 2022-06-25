@@ -13,7 +13,6 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         location: 'Italy, Palau',
         image: '/images/projects/1.jpg',
         logo: '/images/logos/1.jpg',
-        ownerId: '1',
         features: ['Accommodation and food provided', 'lake nearby for swimming', 'current food forest with seasonally available fresh produce'],
         tasks: [],
         positions: ['Developer', 'Soil scientist']
@@ -29,7 +28,6 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         location: 'Italy, Palau',
         image: '/images/projects/2.jpg',
         logo: '/images/logos/2.jpg',
-        ownerId: '2',
         features: [],
         tasks: [],
         positions: ['Developer', 'Soil scientist']
@@ -45,7 +43,6 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         location: 'Bulgaria, Debnevo',
         image: '/images/projects/3.jpg',
         logo: '/images/logos/3.jpg',
-        ownerId: '3',
         features: [],
         tasks: [],
         positions: ['Developer', 'Soil scientist']
@@ -61,25 +58,24 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         location: 'New York, USA',
         image: '/images/projects/4.jpg',
         logo: '/images/logos/4.jpg',
-        ownerId: '4',
-        features: [],
-        tasks: [],
-        positions: ['Developer', 'Soil scientist']
-    },
-    {
-        id: '5',
-        title: 'Hazel Organic',
-        landArea: {
-            amount: 35.2,
-            unit: AreaUnit.Meter
-        },
-        description: 'A regenerative commercial hazel orchard in the Pontic Mountians of Turkey . We grow hazelnuts orchards grazed by Dağlıç Sheep and integrate patches of native flora within the orchard to support the diminishing biodiversity within our region.',
-        location: 'Turkey , Ordu',
-        image: '/images/projects/5.jpg',
-        logo: '/images/logos/5.jpg',
-        ownerId: '5',
         features: [],
         tasks: [],
         positions: ['Developer', 'Soil scientist']
     },
 ]
+
+export const NEW_PROJECT_MOCK: WithId<Project> = {
+    id: '5',
+    title: 'Hazel Organic',
+    landArea: {
+        amount: 35,
+        unit: AreaUnit.Meter
+    },
+    description: 'A regenerative commercial hazel orchard in the Pontic Mountians of Turkey . We grow hazelnuts orchards grazed by Dağlıç Sheep and integrate patches of native flora within the orchard to support the diminishing biodiversity within our region.',
+    location: 'Turkey , Ordu',
+    image: '/images/projects/5.jpg',
+    logo: '/images/logos/5.jpg',
+    features: ['Many animals to spend time with', 'Fruits available from trees'],
+    tasks: [],
+    positions: ['Developer', 'Soil scientist']
+}

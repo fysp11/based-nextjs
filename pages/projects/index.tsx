@@ -1,38 +1,54 @@
-import { useEffect, useState } from 'react'
-
-import { PROJECTS_CARDS_MOCK } from '../../mocks'
-import Loading from '../../components/loading'
-import ListingCard from '../../components/project-card'
-import { Box, SimpleGrid } from '@chakra-ui/react'
-import { ProjectCard, WithId } from '../../types'
+import { Box, Button, Heading, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router';
+import { useContext } from 'react'
+
+import ListingCard from '../../components/project-card'
+import { DBContext } from '../../contexts'
 
 
 export default function ProjectsPage() {
-    const [listings, setListings] = useState<WithId<ProjectCard>[]>([])
-    const [isLoading, setIsLoading] = useState(false)
+    const { push } = useRouter()
+    const { projects } = useContext(DBContext)
 
-    useEffect(() => {
-        setIsLoading(true)
-        setTimeout(() => {
-            setListings(_ => [...PROJECTS_CARDS_MOCK])
-            setIsLoading(false)
-        }, 211)
-    }, [])
+    const color1 = useColorModeValue('green.900', 'green.100');
+    const color2 = useColorModeValue('gray.200', 'gray.800');
 
-    return isLoading
-        ? <Loading />
-        :
-        <SimpleGrid minChildWidth={400} spacing={10}>
-            {listings.map(listing => {
-                const { id, ...listingData } = listing;
-                return <Box key={id}>
-                    <Link href={`/projects/${id}`}>
-                        <a className="chakra-reset">
-                            <ListingCard {...listingData} />
-                        </a>
-                    </Link>
-                </Box>
-            })}
-        </SimpleGrid>
+    return (
+        <Box mb={50}>
+            <Stack spacing={5}>
+                <Heading fontSize={'4xl'} textAlign={'center'}>
+                    Projects
+                </Heading>
+                <Button
+                    rounded={'none'}
+                    w={'full'}
+                    mt={8}
+                    size={'lg'}
+                    py={'7'}
+                    bg={color1}
+                    color={color2}
+                    textTransform={'uppercase'}
+                    onClick={() => push(`/projects/add`)}
+                    _hover={{
+                        transform: 'translateY(2px)',
+                        boxShadow: 'lg',
+                    }}>
+                    Add a Project
+                </Button>
+                <SimpleGrid minChildWidth={400} spacing={10}>
+                    {projects.map(project => {
+                        const { id, ...projectData } = project;
+                        return <Box key={id}>
+                            <Link href={`/projects/${id}`}>
+                                <a className="chakra-reset">
+                                    <ListingCard {...projectData} />
+                                </a>
+                            </Link>
+                        </Box>
+                    })}
+                </SimpleGrid>
+            </Stack>
+        </Box >
+    )
 }

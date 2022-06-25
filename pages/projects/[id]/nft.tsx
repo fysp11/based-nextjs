@@ -3,18 +3,21 @@ import {
     Heading, useColorModeValue, HStack, Select,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+
+import { DBContext } from '../../../contexts';
 import { NFT_LAYER_OBJECTS, PROJECTS_MOCK } from '../../../mocks';
-import { NFTLayer, Project, WithId } from '../../../types';
+import { NFTLayer, Project, ProjectCommitment, WithId } from '../../../types';
 
 export default function SignupCard() {
-    const { query } = useRouter()
+    const { query, push } = useRouter()
+    const { addCommitment } = useContext(DBContext);
 
     const [commitAmount, setCommitAmount] = useState<number>(0);
+    const [commitPosition, setCommitPosition] = useState<string>('');
     const [project, setProject] = useState<WithId<Project>>();
     const [nftLayer, setNftLayer] = useState<NFTLayer>();
 
-    const [canSubmit, setCanSubmit] = useState<boolean>(false);
     const [isValid, setIsValid] = useState<boolean>(false)
 
     const bgColor = useColorModeValue('white', 'gray.700')
@@ -24,15 +27,27 @@ export default function SignupCard() {
         if (!rawValue) setCommitAmount(0)
         else {
             const value = parseInt(rawValue);
-            console.log(value)
             setCommitAmount(value);
         }
     }
 
+    const handleAddCommitment = () => {
+        if (!isValid) return
+        const commitment: ProjectCommitment = {
+            projectId: project!.id,
+            committedAmount: commitAmount,
+            position: commitPosition
+        }
+        addCommitment(commitment);
+        push('/')
+    }
+
     useEffect(() => {
-        const valid = !!commitAmount && commitAmount <= nftLayer?.available!
+        const validAMount = !!commitAmount && commitAmount <= nftLayer?.available!
+        const validPosition = project?.positions.includes(commitPosition)
+        const valid = !!(validAMount && validPosition)
         setIsValid(valid);
-    }, [commitAmount, nftLayer?.available])
+    }, [commitAmount, commitPosition, project?.positions, nftLayer?.available])
 
     useEffect(() => {
         setProject(() => PROJECTS_MOCK.find(project => project.id === query.id));
@@ -41,6 +56,7 @@ export default function SignupCard() {
     useEffect(() => {
         if (project) setNftLayer(NFT_LAYER_OBJECTS.find(nft => nft.projectId === project!.id));
     }, [project])
+
 
     return (
         <Flex
@@ -75,24 +91,18 @@ export default function SignupCard() {
                                     isInvalid={commitAmount > nftLayer.available}
                                 />
                             </FormControl>
+                            <FormControl id="position">
+                                <FormLabel>Position</FormLabel>
+                                <Select
+                                    placeholder='Select option'
+                                    value={commitPosition}
+                                    onChange={(e) => setCommitPosition(e.target.value)}>
+                                    {project?.positions.map(position => (
+                                        <option key={position} value={position}>{position}</option>
+                                    ))}
+                                </Select>
+                            </FormControl>
 
-                            {/* <FormControl id="landArea" isRequired>
-                            <HStack>
-                                <Box w={'100%'}>
-                                    <FormLabel>NFT Unit Area (Amount)</FormLabel>
-                                    <Input type="number" min={1} value={landArea?.amount} onChange={(e) => handleChange(e, 'landArea', 'amount')} />
-                                </Box>
-                                <Box w={'100%'}>
-                                    <FormControl id="lastName">
-                                        <FormLabel>Land Area (Unit)</FormLabel>
-                                        <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
-                                            <option value={AreaUnit.Meter}>Meter</option>
-                                            <option value={AreaUnit.Hectare}>Hectare</option>
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                            </HStack>
-                        </FormControl> */}
                             <Stack spacing={10} pt={2}>
                                 <Button
                                     loadingText="Submitting"
@@ -100,6 +110,7 @@ export default function SignupCard() {
                                     size="lg"
                                     bg={'blue.400'}
                                     color={'white'}
+                                    onClick={() => handleAddCommitment()}
                                     _hover={{
                                         bg: 'blue.500',
                                     }}>

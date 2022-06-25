@@ -5,6 +5,7 @@ export interface ProjectCard {
     description: string,
     location: string,
     image: string,
+    logo: string,
     ownerId: string,
     landArea: LandArea
 }
@@ -18,11 +19,7 @@ export interface NFTLayer {
     supply: number,
     available: number,
 }
-export interface Owner {
-    displayName: string,
-    since: string,
-    image: string
-}
+
 export interface Task {
     projectId: string,
     title: string,

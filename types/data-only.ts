@@ -7,8 +7,8 @@ export interface RewardData {
 export type PositionData = string;
 
 export enum AreaUnit {
-    Meter,
-    Hectare
+    Meter = 'm2',
+    Hectare = 'ha2',
 }
 
 export interface LandArea {

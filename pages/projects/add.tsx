@@ -1,19 +1,6 @@
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    Stack,
-    Button,
-    Heading,
-    useColorModeValue,
-    Textarea,
-    VStack,
-    InputLeftAddon,
-    HStack,
-    Select,
+    Flex, Box, FormControl, FormLabel, Input, InputGroup, Stack, Button,
+    Heading, useColorModeValue, Textarea, VStack, InputLeftAddon, HStack, Select,
 } from '@chakra-ui/react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { AreaUnit, LandArea, PositionData, Project } from '../../types';
@@ -85,7 +72,6 @@ export default function SignupCard() {
             positions: filterEmpties(positions).length > 0,
             landArea: +(landArea?.amount!) > 0 && Object(AreaUnit).hasOwnProperty(landArea?.unit!)
         }
-        console.log(newValidation);
         setValidation(newValidation);
     }, [title, description, location, image, features, positions, landArea])
 

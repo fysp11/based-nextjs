@@ -84,6 +84,6 @@ export const NEW_PROJECT_MOCK: WithId<Project> = {
     image: '/images/projects/5.jpg',
     logo: '/images/logos/5.jpg',
     features: ['Many animals to spend time with', 'Fruits available from trees'],
-    tasks: ['Hazel Harvesting', 'Orchard Pruning', 'Entomology survey'],
+    tasks: ['15th Sep - 1st Oct: Hazel Harvesting', '1st Feb - 1st March: Orchard Pruning', '1st July - 1st Aug: Entomology survey'],
     positions: ['Developer', 'Soil scientist']
 }

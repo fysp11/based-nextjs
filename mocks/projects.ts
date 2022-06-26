@@ -18,7 +18,7 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
             'March 1st - April 1st: Preparing site for planting - Staking tree positions',
             'April 1st - April 14th:  Planting trees',
         ],
-        positions: ['Developer', 'Soil scientist']
+        positions: ['Planting', 'Land Preparation']
     },
     {
         id: '2',

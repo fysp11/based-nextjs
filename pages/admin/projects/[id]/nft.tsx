@@ -80,7 +80,7 @@ export default function SignupCard() {
             <Stack spacing={8} w={['100%', 500, 500, 800]}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
-                        Fractionalize Land as NFTs
+                        Fractionalize Land
                     </Heading>
                 </Stack>
                 <Box
@@ -90,11 +90,11 @@ export default function SignupCard() {
                     p={8}>
                     <Stack spacing={4}>
                         <FormControl id="supply" isRequired>
-                            <FormLabel>NFTs Supply</FormLabel>
+                            <FormLabel>Land Token Supply</FormLabel>
                             <Input type="number" min={3} value={supply} onChange={(e) => handleChange(e, 'supply')} />
                         </FormControl>
                         <FormControl id="available" isRequired>
-                            <FormLabel>NFTs Available</FormLabel>
+                            <FormLabel>Land Tokens Available</FormLabel>
                             <Input type="number" min={1} value={available} onChange={(e) => handleChange(e, 'available')} />
                         </FormControl>
                         <FormControl id="landArea" isRequired>

@@ -76,7 +76,7 @@ export default function ProjectPage() {
                                     transform: 'translateY(2px)',
                                     boxShadow: 'lg',
                                 }}>
-                                Admin NFT
+                                Manage Token Supply
                             </Button>
                         </Box>}
 
@@ -131,7 +131,7 @@ export default function ProjectPage() {
                                     fontWeight={'500'}
                                     textTransform={'uppercase'}
                                     mb={'4'}>
-                                    Product Details
+                                    Token Info
                                 </Text>
 
                                 <List spacing={2}>

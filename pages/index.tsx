@@ -42,7 +42,7 @@ export default function Dashboard() {
             fontSize={'4xl'}
             py={10}
             fontWeight={'bold'}>
-            My Projects
+            My Lands
           </chakra.h1>
           <Accordion defaultIndex={[0]} allowMultiple minW={'100%'}>
             {myProjects.map((project, index) => (

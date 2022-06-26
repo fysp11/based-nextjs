@@ -6,7 +6,7 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         id: '1',
         title: 'Food Forest Mountain',
         landArea: {
-            amount: 35.2,
+            amount: 352000,
             unit: AreaUnit.Meter
         },
         description: 'We are creating a small settlement on our site and growing food and resources to support those living here. We have luxury campling facilities and run rock climbing activities and other events from the property.',
@@ -21,20 +21,20 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         id: '2',
         title: 'Aponia',
         landArea: {
-            amount: 35.2,
-            unit: AreaUnit.Meter
+            amount: 25000000,
+            unit: AreaUnit.Centimeter
         },
         description: 'We experiment with annual and perennial polycultures in order to try and establish an optimal ratio of wild to cultivated land within a market garden set up wherein we grow a diversity of high yielding and healthy foods within the wild and semi wild habitats.',
         location: 'Italy, Palau',
         image: '/images/projects/2.jpg',
         logo: '/images/logos/2.jpg',
-        features: [],
+        features: ['Regular social events', 'Entomology Courses', 'Cooking Classes'],
         tasks: [],
         positions: ['Developer', 'Soil scientist']
     },
     {
         id: '3',
-        title: 'Polycultrue Orchard',
+        title: 'Polyculture Orchard',
         landArea: {
             amount: 35.2,
             unit: AreaUnit.Meter

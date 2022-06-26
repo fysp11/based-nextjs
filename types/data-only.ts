@@ -8,6 +8,7 @@ export type PositionData = string;
 
 export enum AreaUnit {
     MilliMeter = 'mm2',
+    Centimeter = 'cm2',
     Meter = 'm2',
     Hectare = 'ha2',
 }

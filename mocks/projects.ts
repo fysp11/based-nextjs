@@ -14,7 +14,12 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         image: '/images/projects/1.jpg',
         logo: '/images/logos/1.jpg',
         features: ['Accommodation and food provided', 'lake nearby for swimming', 'current food forest with seasonally available fresh produce'],
-        tasks: [],
+        tasks: [
+            'Preparing site for planting - Staking tree positions',
+            'Planting trees', 'Growing food',
+            'Running rock climbing activities',
+            'Planting out trees'
+        ],
         positions: ['Developer', 'Soil scientist']
     },
     {
@@ -29,7 +34,10 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         image: '/images/projects/2.jpg',
         logo: '/images/logos/2.jpg',
         features: ['Regular social events', 'Entomology Courses', 'Cooking Classes'],
-        tasks: [],
+        tasks: [
+            'Geolocating tree positions',
+            'Uploading to project map'
+        ],
         positions: ['Developer', 'Soil scientist']
     },
     {
@@ -76,6 +84,6 @@ export const NEW_PROJECT_MOCK: WithId<Project> = {
     image: '/images/projects/5.jpg',
     logo: '/images/logos/5.jpg',
     features: ['Many animals to spend time with', 'Fruits available from trees'],
-    tasks: [],
+    tasks: ['Hazel Harvesting', 'Orchard Pruning', 'Entomology survey'],
     positions: ['Developer', 'Soil scientist']
 }

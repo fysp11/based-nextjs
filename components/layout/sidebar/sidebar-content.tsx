@@ -28,7 +28,7 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarContentProps) =>
             pos="fixed"
             h="full"
             {...rest}>
-            <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+            <Flex h="20" alignItems="center" mx="8" mb={10} justifyContent="space-between">
                 <Box bg={'gray.300'} p={1} rounded='md'>
                     <Image
                         maxW={'20'}

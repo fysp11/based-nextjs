@@ -103,10 +103,10 @@ export default function ProjectPage() {
                                     fontWeight={'500'}
                                     textTransform={'uppercase'}
                                     mb={'4'}>
-                                    Features
+                                    Tasks
                                 </Text>
                                 <Wrap spacing={10}>
-                                    {data?.features.map((feature, index) => (
+                                    {data?.tasks.map((task, index) => (
                                         <WrapItem key={index}>
                                             <Center
                                                 w='280px'
@@ -118,7 +118,7 @@ export default function ProjectPage() {
                                                 noOfLines={3}
                                                 color={'gray.900'}
                                             >
-                                                <Text as='em'>{feature}</Text>
+                                                <Text as='em'>{task}</Text>
                                             </Center>
                                         </WrapItem>
                                     ))}

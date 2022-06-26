@@ -10,7 +10,7 @@ export interface ProjectCard {
 }
 export interface Project extends ProjectCard {
     features: string[],
-    tasks: Task[],
+    tasks: string[],
     positions: PositionData[]
 }
 export interface NFTLayer {

@@ -10,7 +10,7 @@ import { filterEmpties, handleNewItem } from '../../lib/helpers';
 import { NEW_PROJECT_MOCK } from '../../mocks';
 import { DBContext } from '../../contexts';
 
-type ProjectValidation = Record<keyof Omit<Project, 'ownerId' | 'tasks'>, boolean>;
+type ProjectValidation = Record<keyof Omit<Project, 'ownerId' | 'features'>, boolean>;
 
 export default function SignupCard() {
     const { push } = useRouter()
@@ -21,7 +21,7 @@ export default function SignupCard() {
     const [location, setLocation] = useState<string>(NEW_PROJECT_MOCK.location);
     const [image, setImage] = useState<string>(NEW_PROJECT_MOCK.image);
     const [logo, setLogo] = useState<string>(NEW_PROJECT_MOCK.logo);
-    const [features, setFeatures] = useState<string[]>([...NEW_PROJECT_MOCK.features]);
+    const [tasks, setTasks] = useState<string[]>([...NEW_PROJECT_MOCK.tasks]);
     const [positions, setPositions] = useState<PositionData[]>([...NEW_PROJECT_MOCK.positions]);
     const [canSubmit, setCanSubmit] = useState<boolean>(false);
     const [landArea, setLandArea] = useState<LandArea>(NEW_PROJECT_MOCK.landArea);
@@ -30,7 +30,7 @@ export default function SignupCard() {
         title: false,
         description: false,
         location: false,
-        features: false,
+        tasks: false,
         positions: false,
         image: false,
         logo: false,
@@ -55,8 +55,8 @@ export default function SignupCard() {
             case 'logo':
                 setLogo(value);
                 break;
-            case 'features':
-                handleNewItem((indexOrProp! as number), value, setFeatures)
+            case 'tasks':
+                handleNewItem((indexOrProp! as number), value, setTasks)
                 break;
             case 'positions':
                 handleNewItem((indexOrProp! as number), value, setPositions)
@@ -78,13 +78,13 @@ export default function SignupCard() {
         const newProject: WithId<Project> = {
             id: NEW_PROJECT_MOCK.id,
             description,
-            features,
+            tasks,
             image,
             landArea,
             location,
             logo,
             positions,
-            tasks: [],
+            features: [],
             title
         }
         addProject(newProject)
@@ -98,12 +98,12 @@ export default function SignupCard() {
             location: !!location?.trim(),
             image: !!image?.trim(),
             logo: !!logo?.trim(),
-            features: filterEmpties(features).length > 0,
+            tasks: filterEmpties(tasks).length > 0,
             positions: filterEmpties(positions).length > 0,
             landArea: +(landArea?.amount!) > 0 && Object.values(AreaUnit).includes(landArea?.unit!)
         }
         setValidation(newValidation);
-    }, [title, description, location, image, logo, features, positions, landArea])
+    }, [title, description, location, image, logo, tasks, positions, landArea])
 
     useEffect(() => {
         setCanSubmit(Object.values(validation).every(v => v))
@@ -166,15 +166,15 @@ export default function SignupCard() {
                         </FormControl>
                         <VStack spacing={10} pt={2}>
                             <FormControl id="features" isRequired>
-                                <FormLabel>Features</FormLabel>
-                                {features.map((feature, index) => (
+                                <FormLabel>Tasks</FormLabel>
+                                {tasks.map((task, index) => (
                                     <InputGroup key={index} pb={1}>
                                         <InputLeftAddon minW={50}>{index + 1}.</InputLeftAddon>
                                         <Input
                                             type="text"
                                             max={100}
-                                            value={feature}
-                                            onChange={(e) => handleChange(e, 'features', index)}
+                                            value={task}
+                                            onChange={(e) => handleChange(e, 'tasks', index)}
                                         />
                                     </InputGroup>
                                 ))}

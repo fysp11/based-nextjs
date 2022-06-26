@@ -1,4 +1,4 @@
-import { LandArea, PositionData, RewardData } from "./data-only"
+import { AreaUnit, LandArea, PositionData, RewardData } from "./data-only"
 
 export interface ProjectCard {
     title: string,
@@ -15,7 +15,7 @@ export interface Project extends ProjectCard {
 }
 export interface NFTLayer {
     projectId: string,
-    landArea: LandArea,
+    landUnit: AreaUnit,
     supply: number,
     available: number,
 }

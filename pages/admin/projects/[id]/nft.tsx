@@ -1,4 +1,4 @@
-import { Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, HStack, Select } from '@chakra-ui/react';
+import { Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, HStack, Select, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 
@@ -16,10 +16,10 @@ export default function SignupCard() {
 
     const [supply, setSupply] = useState<number>(NEW_NFT_LAYER_OBJECT.supply);
     const [available, setAvailable] = useState<number>(NEW_NFT_LAYER_OBJECT.available);
-    const [landArea, setLandArea] = useState<LandArea>(NEW_NFT_LAYER_OBJECT.landArea);
+    const [landUnit, setLandUnit] = useState<AreaUnit>(NEW_NFT_LAYER_OBJECT.landUnit);
 
     const [canSubmit, setCanSubmit] = useState<boolean>(false);
-    const [validation, setValidation] = useState<NFTLayerValidation>({ supply: false, available: false, landArea: false })
+    const [validation, setValidation] = useState<NFTLayerValidation>({ supply: false, available: false, landUnit: false })
 
     const handleChange = (element: ChangeEvent<unknown>, prop: keyof NFTLayerValidation, indexOrProp?: number | string) => {
         const value = (element as ChangeEvent<HTMLInputElement>).target.value;
@@ -30,13 +30,8 @@ export default function SignupCard() {
             case 'available':
                 setAvailable(parseInt(value));
                 break;
-            case 'landArea':
-                setLandArea(currentData => {
-                    return {
-                        ...(currentData || {}),
-                        [indexOrProp as keyof LandArea]: value
-                    }
-                });
+            case 'landUnit':
+                setLandUnit(value as AreaUnit);
                 break;
             default:
                 break;
@@ -48,7 +43,7 @@ export default function SignupCard() {
             projectId: project!.id,
             available,
             supply,
-            landArea
+            landUnit
         })
         push(`/projects/${project!.id}`)
     }
@@ -62,10 +57,10 @@ export default function SignupCard() {
         const newValidation: NFTLayerValidation = {
             supply: supply > 0,
             available: available > 0,
-            landArea: +(landArea?.amount!) > 0 && Object.values(AreaUnit).includes(landArea?.unit!)
+            landUnit: !!landUnit
         }
         setValidation(newValidation);
-    }, [supply, available, landArea])
+    }, [supply, available, landUnit])
 
     useEffect(() => {
         setCanSubmit(Object.values(validation).every(v => v))
@@ -100,14 +95,11 @@ export default function SignupCard() {
                         <FormControl id="landArea" isRequired>
                             <HStack>
                                 <Box w={'100%'}>
-                                    <FormLabel>Unit Area</FormLabel>
-                                    <Input type="number" min={1} value={landArea?.amount} onChange={(e) => handleChange(e, 'landArea', 'amount')} />
-                                </Box>
-                                <Box w={'100%'}>
                                     <FormLabel>Land Area (Unit)</FormLabel>
-                                    <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
-                                        <option value={AreaUnit.Meter}>Meter</option>
-                                        <option value={AreaUnit.Hectare}>Hectare</option>
+                                    <Select placeholder='Select option' value={landUnit} onChange={(e) => handleChange(e, 'landUnit')}>
+                                        {Object.values(AreaUnit).map(unit => (
+                                            <option key={unit} value={unit}>{unit}</option>
+                                        ))}
                                     </Select>
                                 </Box>
                             </HStack>

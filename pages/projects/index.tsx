@@ -1,4 +1,4 @@
-import { Box, Button, Heading, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Center, Heading, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useContext } from 'react'
@@ -20,22 +20,24 @@ export default function ProjectsPage() {
                 <Heading fontSize={'4xl'} textAlign={'center'}>
                     Projects
                 </Heading>
-                <Button
-                    rounded={'none'}
-                    w={'full'}
-                    mt={8}
-                    size={'lg'}
-                    py={'7'}
-                    bg={color1}
-                    color={color2}
-                    textTransform={'uppercase'}
-                    onClick={() => push(`/projects/add`)}
-                    _hover={{
-                        transform: 'translateY(2px)',
-                        boxShadow: 'lg',
-                    }}>
-                    Add a Project
-                </Button>
+                <Center>
+                    <Button
+                        rounded={'none'}
+                        w={['100%', 650]}
+                        mt={8}
+                        size={'lg'}
+                        py={'7'}
+                        bg={color1}
+                        color={color2}
+                        textTransform={'uppercase'}
+                        onClick={() => push(`/projects/add`)}
+                        _hover={{
+                            transform: 'translateY(2px)',
+                            boxShadow: 'lg',
+                        }}>
+                        Add a Project
+                    </Button>
+                </Center>
                 <SimpleGrid minChildWidth={400} spacing={10}>
                     {projects.map(project => {
                         const { id, ...projectData } = project;

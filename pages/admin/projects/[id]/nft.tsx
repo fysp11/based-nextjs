@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { DBContext } from '../../../../contexts';
+import { NEW_NFT_LAYER_OBJECT } from '../../../../mocks';
 import { AreaUnit, LandArea, NFTLayer, Project, WithId } from '../../../../types';
 
 type NFTLayerValidation = Record<keyof Omit<NFTLayer, 'projectId'>, boolean>;
@@ -16,9 +17,9 @@ export default function SignupCard() {
 
     const [project, setProject] = useState<WithId<Project>>()
 
-    const [supply, setSupply] = useState<number>(0);
-    const [available, setAvailable] = useState<number>(0);
-    const [landArea, setLandArea] = useState<LandArea>({ amount: 0, unit: AreaUnit.Meter });
+    const [supply, setSupply] = useState<number>(NEW_NFT_LAYER_OBJECT.supply);
+    const [available, setAvailable] = useState<number>(NEW_NFT_LAYER_OBJECT.available);
+    const [landArea, setLandArea] = useState<LandArea>(NEW_NFT_LAYER_OBJECT.landArea);
 
     const [canSubmit, setCanSubmit] = useState<boolean>(false);
     const [validation, setValidation] = useState<NFTLayerValidation>({ supply: false, available: false, landArea: false })

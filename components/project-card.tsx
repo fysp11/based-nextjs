@@ -1,5 +1,5 @@
 import { AspectRatio, Image } from '@chakra-ui/react';
-import { Box, Center, Heading, Text, Stack, Avatar, useColorModeValue } from '@chakra-ui/react';
+import { Box, Center, Heading, Text, Stack, Avatar } from '@chakra-ui/react';
 import { ProjectCard } from '../types';
 
 
@@ -11,7 +11,7 @@ export default function ListingCard({ image, title, description, location, logo,
                 maxW={'450px'}
                 minW={'400px'}
                 w={'full'}
-                bg={useColorModeValue('white', 'gray.900')}
+                bg='gray.900'
                 boxShadow={'2xl'}
                 rounded={'md'}
                 p={6}
@@ -23,7 +23,7 @@ export default function ListingCard({ image, title, description, location, logo,
                 </Box>
                 <Stack>
                     <Heading
-                        color={useColorModeValue('gray.700', 'white')}
+                        color='white'
                         fontSize={'2xl'}
                         fontFamily={'body'}>
                         {title}

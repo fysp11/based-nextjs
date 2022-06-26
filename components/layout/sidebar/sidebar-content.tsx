@@ -1,5 +1,6 @@
-import { Box, BoxProps, CloseButton, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, BoxProps, CloseButton, Flex, Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+
 import NavItem from "../nav/nav-item";
 import { LinkItemProps } from "../types";
 
@@ -20,17 +21,22 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SidebarContentProps) =>
     return (
         <Box
             transition="3s ease"
-            bg={useColorModeValue('green.100', 'green.900')}
+            bg='green.900'
             borderRight="1px"
-            borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+            borderRightColor='gray.700'
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                    Logo
-                </Text>
+                <Box bg={'gray.300'} p={1} rounded='md'>
+                    <Image
+                        maxW={'20'}
+                        maxH={'20'}
+                        src="/logo.png"
+                        alt="logo"
+                    />
+                </Box>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {linkItems.map((link) => (

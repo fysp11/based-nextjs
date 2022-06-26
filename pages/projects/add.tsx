@@ -1,6 +1,6 @@
 import {
     Flex, Box, FormControl, FormLabel, Input, InputGroup, Stack, Button,
-    Heading, useColorModeValue, Textarea, VStack, InputLeftAddon, HStack, Select, Link,
+    Heading, Textarea, VStack, InputLeftAddon, HStack, Select, Link,
 } from '@chakra-ui/react';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -123,7 +123,7 @@ export default function SignupCard() {
                 </Stack>
                 <Box
                     rounded={'lg'}
-                    bg={useColorModeValue('white', 'gray.700')}
+                    bg='gray.700'
                     boxShadow={'lg'}
                     p={8}>
                     <Stack spacing={4}>

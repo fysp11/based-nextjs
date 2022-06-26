@@ -1,7 +1,4 @@
-import {
-    Flex, Box, FormControl, FormLabel, Input, Stack, Button,
-    Heading, useColorModeValue, HStack, Select,
-} from '@chakra-ui/react';
+import { Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, Select } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 
@@ -19,8 +16,6 @@ export default function SignupCard() {
     const [nftLayer, setNftLayer] = useState<NFTLayer>();
 
     const [isValid, setIsValid] = useState<boolean>(false)
-
-    const bgColor = useColorModeValue('white', 'gray.700')
 
     const handleCommitmentChange = (e: ChangeEvent<HTMLInputElement>) => {
         const rawValue = e.target.value;
@@ -73,7 +68,7 @@ export default function SignupCard() {
                 {nftLayer &&
                     <Box
                         rounded={'lg'}
-                        bg={bgColor}
+                        bg='gray.700'
                         boxShadow={'lg'}
                         p={8}>
                         <Stack spacing={4}>

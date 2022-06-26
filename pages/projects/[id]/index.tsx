@@ -1,6 +1,6 @@
 import {
-    Box, Container, Stack, Text, Image, Flex, VStack, Button, Heading, SimpleGrid,
-    StackDivider, useColorModeValue, List, ListItem, Wrap, WrapItem, Center,
+    Box, Container, Stack, Text, Image, Flex, VStack, Button, Heading,
+    SimpleGrid, StackDivider, List, ListItem, Wrap, WrapItem, Center,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
@@ -18,13 +18,6 @@ export default function ProjectPage() {
     const [isLoading, setisLoading] = useState(true);
     const [canAdmin, setCanAdmin] = useState(false);
     const [nftInfo, setNftInfo] = useState<NFTLayer>();
-
-    const color1 = useColorModeValue('gray.900', 'gray.400');
-    const color2 = useColorModeValue('gray.200', 'gray.600');
-    const color3 = useColorModeValue('gray.500', 'gray.400');
-    const color4 = useColorModeValue('yellow.500', 'yellow.300');
-    const color5 = useColorModeValue('gray.900', 'gray.50');
-    const color6 = useColorModeValue('white', 'gray.900');
 
     useEffect(() => {
         setisLoading(true);
@@ -63,7 +56,7 @@ export default function ProjectPage() {
                                 {data?.title}
                             </Heading>
                             <Text
-                                color={color1}
+                                color='gray.400'
                                 fontWeight={300}
                                 fontSize={'2xl'}>
                                 {data?.location} - Area: {data?.landArea.amount} {data?.landArea.unit}
@@ -75,8 +68,8 @@ export default function ProjectPage() {
                                 rounded={'none'}
                                 w={'full'}
                                 size={'lg'}
-                                bg={color5}
-                                color={color6}
+                                bg='gray.50'
+                                color='gray.900'
                                 textTransform={'uppercase'}
                                 onClick={() => push(`/admin/projects/${query.id}/nft`)}
                                 _hover={{
@@ -92,12 +85,12 @@ export default function ProjectPage() {
                             direction={'column'}
                             divider={
                                 <StackDivider
-                                    borderColor={color2}
+                                    borderColor='gray.600'
                                 />
                             }>
                             <VStack spacing={{ base: 4, sm: 6 }}>
                                 <Text
-                                    color={color3}
+                                    color='gray.400'
                                     fontSize={'2xl'}
                                     fontWeight={'300'}>
                                     {data?.description}
@@ -106,7 +99,7 @@ export default function ProjectPage() {
                             <Box>
                                 <Text
                                     fontSize={{ base: '16px', lg: '18px' }}
-                                    color={color4}
+                                    color='yellow.300'
                                     fontWeight={'500'}
                                     textTransform={'uppercase'}
                                     mb={'4'}>
@@ -115,7 +108,16 @@ export default function ProjectPage() {
                                 <Wrap spacing={10}>
                                     {data?.features.map((feature, index) => (
                                         <WrapItem key={index}>
-                                            <Center w='280px' h='120px' bg='gray.500' pl={5} pt={3} fontSize={20} noOfLines={3}>
+                                            <Center
+                                                w='280px'
+                                                h='120px'
+                                                bg='green.200'
+                                                pl={5}
+                                                pt={3}
+                                                fontSize={20}
+                                                noOfLines={3}
+                                                color={'gray.900'}
+                                            >
                                                 <Text as='em'>{feature}</Text>
                                             </Center>
                                         </WrapItem>
@@ -125,7 +127,7 @@ export default function ProjectPage() {
                             {nftInfo && <Box>
                                 <Text
                                     fontSize={{ base: '16px', lg: '18px' }}
-                                    color={color5}
+                                    color='gray.50'
                                     fontWeight={'500'}
                                     textTransform={'uppercase'}
                                     mb={'4'}>
@@ -161,8 +163,8 @@ export default function ProjectPage() {
                             mt={8}
                             size={'lg'}
                             py={'7'}
-                            bg={color5}
-                            color={color6}
+                            bg='gray.50'
+                            color='gray.900'
                             textTransform={'uppercase'}
                             onClick={() => push(`/projects/${query.id}/nft`)}
                             _hover={{

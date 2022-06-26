@@ -100,7 +100,7 @@ export default function Dashboard() {
                   <AccordionPanel pb={4}>
                     <Box>
                       <Text>
-                        Position: {commitment.position}
+                        Task: {commitment.task}
                       </Text>
                     </Box>
                     <Text>

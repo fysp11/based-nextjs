@@ -11,7 +11,7 @@ export default function SignupCard() {
     const { projects, addCommitment } = useContext(DBContext);
 
     const [commitAmount, setCommitAmount] = useState<number>(0);
-    const [commitPosition, setCommitPosition] = useState<string>('');
+    const [commitTask, setCommitTask] = useState<string>('');
     const [project, setProject] = useState<WithId<Project>>();
     const [nftLayer, setNftLayer] = useState<NFTLayer>();
 
@@ -31,7 +31,7 @@ export default function SignupCard() {
         const commitment: ProjectCommitment = {
             projectId: project!.id,
             committedAmount: commitAmount,
-            position: commitPosition
+            task: commitTask
         }
         addCommitment(commitment);
         push('/')
@@ -39,10 +39,10 @@ export default function SignupCard() {
 
     useEffect(() => {
         const validAMount = !!commitAmount && commitAmount <= nftLayer?.available!
-        const validPosition = project?.positions.includes(commitPosition)
+        const validPosition = project?.positions.includes(commitTask)
         const valid = !!(validAMount && validPosition)
         setIsValid(valid);
-    }, [commitAmount, commitPosition, project?.positions, nftLayer?.available])
+    }, [commitAmount, commitTask, project?.positions, nftLayer?.available])
 
     useEffect(() => {
         setProject(() => projects.find(project => project.id === query.id));
@@ -87,11 +87,11 @@ export default function SignupCard() {
                                 />
                             </FormControl>
                             <FormControl id="position">
-                                <FormLabel>Position</FormLabel>
+                                <FormLabel>Task</FormLabel>
                                 <Select
                                     placeholder='Select option'
-                                    value={commitPosition}
-                                    onChange={(e) => setCommitPosition(e.target.value)}>
+                                    value={commitTask}
+                                    onChange={(e) => setCommitTask(e.target.value)}>
                                     {project?.positions.map(position => (
                                         <option key={position} value={position}>{position}</option>
                                     ))}

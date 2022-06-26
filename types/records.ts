@@ -31,6 +31,6 @@ export interface Task {
 export interface ProjectCommitment {
     projectId: string,
     committedAmount: number,
-    position?: string,
+    task: string,
 }
 

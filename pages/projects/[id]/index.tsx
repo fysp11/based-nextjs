@@ -122,7 +122,7 @@ export default function ProjectPage() {
                                     ))}
                                 </Wrap>
                             </Box>
-                            <Box>
+                            {nftInfo && <Box>
                                 <Text
                                     fontSize={{ base: '16px', lg: '18px' }}
                                     color={color5}
@@ -152,7 +152,7 @@ export default function ProjectPage() {
                                         {nftInfo?.landArea.amount} {nftInfo?.landArea.unit}
                                     </ListItem>
                                 </List>
-                            </Box>
+                            </Box>}
                         </Stack>
 
                         {!canAdmin && <Button

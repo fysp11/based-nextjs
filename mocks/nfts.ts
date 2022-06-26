@@ -17,7 +17,7 @@ export const NFT_LAYER_OBJECTS: NFTLayer[] = [
 
 export const NEW_NFT_LAYER_OBJECT: NFTLayer = {
     projectId: '5',
-    available: 30000000,
-    supply: 14000000,
+    available: 14000000,
+    supply: 30000000,
     landUnit: AreaUnit.MilliMeter
 }

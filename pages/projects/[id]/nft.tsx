@@ -87,7 +87,7 @@ export default function SignupCard() {
                                 />
                             </FormControl>
                             <FormControl id="position">
-                                <FormLabel>Position</FormLabel>
+                                <FormLabel>Task</FormLabel>
                                 <Select
                                     placeholder='Select option'
                                     value={commitTask}

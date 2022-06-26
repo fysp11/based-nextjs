@@ -1,4 +1,4 @@
-import { Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, Select } from '@chakra-ui/react';
+import { Image, Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, Select } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 
@@ -65,6 +65,18 @@ export default function SignupCard() {
                         Commit & Support Project
                     </Heading>
                 </Stack>
+                <Flex>
+                    <Image
+                        rounded={'md'}
+                        alt={'fractal'}
+                        src={'/images/fractal.jpg'}
+                        fit={'cover'}
+                        align={'center'}
+                        w={'100%'}
+                        h={{ base: '100%', sm: '400px', lg: '500px' }}
+                    />
+                </Flex>
+
                 {nftLayer &&
                     <Box
                         rounded={'lg'}

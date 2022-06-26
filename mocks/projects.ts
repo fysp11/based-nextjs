@@ -15,10 +15,8 @@ export const PROJECTS_MOCK: WithId<Project>[] = [
         logo: '/images/logos/1.jpg',
         features: ['Accommodation and food provided', 'lake nearby for swimming', 'current food forest with seasonally available fresh produce'],
         tasks: [
-            'Preparing site for planting - Staking tree positions',
-            'Planting trees', 'Growing food',
-            'Running rock climbing activities',
-            'Planting out trees'
+            'March 1st - April 1st: Preparing site for planting - Staking tree positions',
+            'April 1st - April 14th:  Planting trees',
         ],
         positions: ['Developer', 'Soil scientist']
     },

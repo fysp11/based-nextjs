@@ -3,12 +3,12 @@ import {
     Heading, useColorModeValue, Textarea, VStack, InputLeftAddon, HStack, Select, Link,
 } from '@chakra-ui/react';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { AreaUnit, LandArea, PositionData, Project, WithId } from '../../types';
 import { filterEmpties, handleNewItem } from '../../lib/helpers';
 import { NEW_PROJECT_MOCK } from '../../mocks';
 import { DBContext } from '../../contexts';
-import { useRouter } from 'next/router';
 
 type ProjectValidation = Record<keyof Omit<Project, 'ownerId' | 'tasks'>, boolean>;
 

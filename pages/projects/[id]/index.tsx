@@ -1,35 +1,18 @@
 import {
-    Box,
-    Container,
-    Stack,
-    Text,
-    Image,
-    Flex,
-    VStack,
-    Button,
-    Heading,
-    SimpleGrid,
-    StackDivider,
-    useColorModeValue,
-    List,
-    ListItem,
-    HStack,
-    Wrap,
-    WrapItem,
-    Center,
+    Box, Container, Stack, Text, Image, Flex, VStack, Button, Heading, SimpleGrid,
+    StackDivider, useColorModeValue, List, ListItem, Wrap, WrapItem, Center,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
 import Loading from '../../../components/loading';
 import { DBContext } from '../../../contexts';
-import { NFT_LAYER_OBJECTS, OWNED_PROJECTS, PROJECTS_MOCK } from '../../../mocks';
-
+import { OWNED_PROJECTS } from '../../../mocks';
 import { NFTLayer, Project } from '../../../types';
 
 export default function ProjectPage() {
     const { query, push } = useRouter()
-    const { projects } = useContext(DBContext)
+    const { projects, nftLayers } = useContext(DBContext)
 
     const [data, setData] = useState<Project>();
     const [isLoading, setisLoading] = useState(true);
@@ -49,8 +32,8 @@ export default function ProjectPage() {
         setData(projectData);
         setisLoading(false);
         setCanAdmin(OWNED_PROJECTS.includes((query.id as string)));
-        setNftInfo(NFT_LAYER_OBJECTS.find(nft => nft.projectId === query.id));
-    }, [query.id, projects]);
+        setNftInfo(nftLayers.find(nft => nft.projectId === query.id));
+    }, [query.id, projects, nftLayers]);
 
     return (
         isLoading

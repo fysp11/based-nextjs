@@ -2,15 +2,23 @@ import {
     Flex, Box, FormControl, FormLabel, Input, Stack, Button,
     Heading, useColorModeValue, HStack, Select,
 } from '@chakra-ui/react';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { AreaUnit, LandArea, NFTLayer } from '../../../../types';
+import { useRouter } from 'next/router';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+
+import { DBContext } from '../../../../contexts';
+import { AreaUnit, LandArea, NFTLayer, Project, WithId } from '../../../../types';
 
 type NFTLayerValidation = Record<keyof Omit<NFTLayer, 'projectId'>, boolean>;
 
 export default function SignupCard() {
+    const { query, push } = useRouter()
+    const { projects, addNFTLayer } = useContext(DBContext)
+
+    const [project, setProject] = useState<WithId<Project>>()
+
     const [supply, setSupply] = useState<number>(0);
     const [available, setAvailable] = useState<number>(0);
-    const [landArea, setLandArea] = useState<Partial<LandArea>>({ amount: 0, unit: AreaUnit.Meter });
+    const [landArea, setLandArea] = useState<LandArea>({ amount: 0, unit: AreaUnit.Meter });
 
     const [canSubmit, setCanSubmit] = useState<boolean>(false);
     const [validation, setValidation] = useState<NFTLayerValidation>({ supply: false, available: false, landArea: false })
@@ -37,11 +45,26 @@ export default function SignupCard() {
         }
     }
 
+    const handleAddNFTLayer = () => {
+        addNFTLayer({
+            projectId: project!.id,
+            available,
+            supply,
+            landArea
+        })
+        push(`/projects/${project!.id}`)
+    }
+
+    useEffect(() => {
+        const foundProject = projects.find(p => p.id === query.id)
+        setProject(foundProject)
+    }, [projects, query.id])
+
     useEffect(() => {
         const newValidation: NFTLayerValidation = {
             supply: supply > 0,
             available: available > 0,
-            landArea: +(landArea?.amount!) > 0 && Object(AreaUnit).hasOwnProperty(landArea?.unit!)
+            landArea: +(landArea?.amount!) > 0 && Object.values(AreaUnit).includes(landArea?.unit!)
         }
         setValidation(newValidation);
     }, [supply, available, landArea])
@@ -70,22 +93,24 @@ export default function SignupCard() {
                     <Stack spacing={4}>
                         <FormControl id="supply" isRequired>
                             <FormLabel>NFTs Supply</FormLabel>
-                            <Input type="number" min={3} value={landArea?.amount} onChange={(e) => handleChange(e, 'supply')} />
+                            <Input type="number" min={3} value={supply} onChange={(e) => handleChange(e, 'supply')} />
+                        </FormControl>
+                        <FormControl id="available" isRequired>
+                            <FormLabel>NFTs Available</FormLabel>
+                            <Input type="number" min={1} value={available} onChange={(e) => handleChange(e, 'available')} />
                         </FormControl>
                         <FormControl id="landArea" isRequired>
                             <HStack>
                                 <Box w={'100%'}>
-                                    <FormLabel>NFT Unit Area (Amount)</FormLabel>
+                                    <FormLabel>Unit Area</FormLabel>
                                     <Input type="number" min={1} value={landArea?.amount} onChange={(e) => handleChange(e, 'landArea', 'amount')} />
                                 </Box>
                                 <Box w={'100%'}>
-                                    <FormControl id="lastName">
-                                        <FormLabel>Land Area (Unit)</FormLabel>
-                                        <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
-                                            <option value={AreaUnit.Meter}>Meter</option>
-                                            <option value={AreaUnit.Hectare}>Hectare</option>
-                                        </Select>
-                                    </FormControl>
+                                    <FormLabel>Land Area (Unit)</FormLabel>
+                                    <Select placeholder='Select option' value={landArea?.unit} onChange={(e) => handleChange(e, 'landArea', 'unit')}>
+                                        <option value={AreaUnit.Meter}>Meter</option>
+                                        <option value={AreaUnit.Hectare}>Hectare</option>
+                                    </Select>
                                 </Box>
                             </HStack>
                         </FormControl>
@@ -96,6 +121,7 @@ export default function SignupCard() {
                                 size="lg"
                                 bg={'blue.400'}
                                 color={'white'}
+                                onClick={() => handleAddNFTLayer()}
                                 _hover={{
                                     bg: 'blue.500',
                                 }}>

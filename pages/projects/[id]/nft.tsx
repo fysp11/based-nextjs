@@ -6,12 +6,12 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { DBContext } from '../../../contexts';
-import { NFT_LAYER_OBJECTS, PROJECTS_MOCK } from '../../../mocks';
+import { NFT_LAYER_OBJECTS } from '../../../mocks';
 import { NFTLayer, Project, ProjectCommitment, WithId } from '../../../types';
 
 export default function SignupCard() {
     const { query, push } = useRouter()
-    const { addCommitment } = useContext(DBContext);
+    const { projects, addCommitment } = useContext(DBContext);
 
     const [commitAmount, setCommitAmount] = useState<number>(0);
     const [commitPosition, setCommitPosition] = useState<string>('');
@@ -50,8 +50,8 @@ export default function SignupCard() {
     }, [commitAmount, commitPosition, project?.positions, nftLayer?.available])
 
     useEffect(() => {
-        setProject(() => PROJECTS_MOCK.find(project => project.id === query.id));
-    }, [query.id])
+        setProject(() => projects.find(project => project.id === query.id));
+    }, [query.id, projects])
 
     useEffect(() => {
         if (project) setNftLayer(NFT_LAYER_OBJECTS.find(nft => nft.projectId === project!.id));

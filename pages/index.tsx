@@ -6,11 +6,11 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 
 import { DBContext } from '../contexts';
-import { OWNED_PROJECTS, PROJECTS_MOCK } from '../mocks';
+import { OWNED_PROJECTS } from '../mocks';
 import { Project, WithId } from '../types';
 
 export default function Dashboard() {
-  const { commitments } = useContext(DBContext);
+  const { commitments, projects } = useContext(DBContext);
 
   const [myProjects, setMyProjects] = useState<WithId<Project>[]>([]);
   const [committedProjects, setCommittedProjects] = useState<Record<string, WithId<Project>>>({});
@@ -18,21 +18,21 @@ export default function Dashboard() {
   const textColor = useColorModeValue('white', 'gray.900');
 
   useEffect(() => {
-    const projects = PROJECTS_MOCK.filter((project) => OWNED_PROJECTS.includes(project.id));
-    setMyProjects(() => projects);
-  }, [])
+    const filteredProjects = projects.filter((project) => OWNED_PROJECTS.includes(project.id));
+    setMyProjects(() => filteredProjects);
+  }, [projects])
 
   useEffect(() => {
-    const projects = PROJECTS_MOCK.filter((project) => commitments.map(c => c.projectId).includes(project.id));
+    const committedProjects = projects.filter((project) => commitments.map(c => c.projectId).includes(project.id));
     setCommittedProjects(() => {
       const map: Record<string, WithId<Project>> = {};
-      projects.forEach((project) => {
+      committedProjects.forEach((project) => {
         map[project.id] = project;
       }
       );
       return map;
     });
-  }, [commitments])
+  }, [commitments, projects])
 
   return (
     <Center>

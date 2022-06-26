@@ -5,12 +5,13 @@ import { ChakraProvider } from '@chakra-ui/react'
 import Layout from '../components/layout'
 import { DBContext } from '../contexts';
 import { useState } from 'react'
-import { Project, ProjectCommitment, WithId } from '../types'
-import { PROJECTS_MOCK } from '../mocks';
+import { NFTLayer, Project, ProjectCommitment, WithId } from '../types'
+import { NFT_LAYER_OBJECTS, PROJECTS_MOCK } from '../mocks';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [commitments, setCommitments] = useState<ProjectCommitment[]>([])
   const [projects, setProjects] = useState<WithId<Project>[]>(PROJECTS_MOCK)
+  const [nftLayers, setNftLayers] = useState<NFTLayer[]>(NFT_LAYER_OBJECTS)
 
   const addCommitment = (commitment: ProjectCommitment) => {
     setCommitments(currentCommitments => [...currentCommitments, commitment])
@@ -20,9 +21,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     setProjects(currentProjects => [...currentProjects, project])
   }
 
+  const addNFTLayer = (nftLayer: NFTLayer) => {
+    setNftLayers(currentNftLayers => [...currentNftLayers, nftLayer])
+  }
+
   return (
     <ChakraProvider>
-      <DBContext.Provider value={{ projects, addProject, commitments, addCommitment }}>
+      <DBContext.Provider value={{
+        projects, addProject,
+        nftLayers, addNFTLayer,
+        commitments, addCommitment
+      }}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

@@ -19,13 +19,14 @@ export const NFT_LAYER_OBJECTS: NFTLayer[] = [
             unit: AreaUnit.Hectare
         }
     },
-    {
-        projectId: '3',
-        available: 300,
-        supply: 10000,
-        landArea: {
-            amount: 4,
-            unit: AreaUnit.Hectare
-        }
-    }
 ]
+
+export const NEW_NFT_LAYER_OBJECT: NFTLayer = {
+    projectId: '5',
+    available: 300,
+    supply: 10000,
+    landArea: {
+        amount: 4,
+        unit: AreaUnit.Hectare
+    }
+}

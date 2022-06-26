@@ -1,4 +1,4 @@
-import { WithId, Owner, Task } from "../types";
+import { WithId, Task } from "../types";
 
 
 export const OWNERS_MOCK: WithId<Task>[] = [

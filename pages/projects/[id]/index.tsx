@@ -151,7 +151,7 @@ export default function ProjectPage() {
                                         <Text as={'span'} fontWeight={'bold'}>
                                             Unit Area:
                                         </Text>{' '}
-                                        {nftInfo?.landArea.amount} {nftInfo?.landArea.unit}
+                                        {nftInfo?.landUnit} {data?.landArea.unit}
                                     </ListItem>
                                 </List>
                             </Box>}

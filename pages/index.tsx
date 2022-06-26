@@ -1,6 +1,6 @@
 import {
   Text, Accordion, AccordionButton, AccordionIcon, AccordionItem,
-  AccordionPanel, Box, Center, chakra, Flex, Button, useColorModeValue
+  AccordionPanel, Box, Center, chakra, Flex, Button
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
@@ -14,8 +14,7 @@ export default function Dashboard() {
 
   const [myProjects, setMyProjects] = useState<WithId<Project>[]>([]);
   const [committedProjects, setCommittedProjects] = useState<Record<string, WithId<Project>>>({});
-  const bgColor = useColorModeValue('gray.900', 'white');
-  const textColor = useColorModeValue('white', 'gray.900');
+
 
   useEffect(() => {
     const filteredProjects = projects.filter((project) => OWNED_PROJECTS.includes(project.id));
@@ -69,7 +68,7 @@ export default function Dashboard() {
                     </Text>
                   </Box>
                   <Link href={`/projects/${project.id}`}>
-                    <Button bg={bgColor} color={textColor}>Open</Button>
+                    <Button bg='white' color='gray.900'>Open</Button>
                   </Link>
                 </AccordionPanel>
               </AccordionItem>

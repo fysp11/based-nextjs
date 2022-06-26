@@ -1,4 +1,4 @@
-import { Box, Button, Center, Heading, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Center, Heading, SimpleGrid, Stack } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useContext } from 'react'
@@ -10,9 +10,6 @@ import { DBContext } from '../../contexts'
 export default function ProjectsPage() {
     const { push } = useRouter()
     const { projects } = useContext(DBContext)
-
-    const color1 = useColorModeValue('green.900', 'green.100');
-    const color2 = useColorModeValue('gray.200', 'gray.800');
 
     return (
         <Box mb={50}>
@@ -27,8 +24,8 @@ export default function ProjectsPage() {
                         mt={8}
                         size={'lg'}
                         py={'7'}
-                        bg={color1}
-                        color={color2}
+                        bg='green.100'
+                        color='gray.800'
                         textTransform={'uppercase'}
                         onClick={() => push(`/projects/add`)}
                         _hover={{

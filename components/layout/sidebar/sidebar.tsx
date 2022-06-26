@@ -1,4 +1,4 @@
-import { Box, Drawer, DrawerContent, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { Box, Drawer, DrawerContent, useDisclosure } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 import MobileNav from "../nav/nav";
 import SidebarContent from "./sidebar-content";
@@ -12,7 +12,7 @@ interface SidebarWithHeaderProps {
 export default function SidebarWithHeader({ linkItems, children }: PropsWithChildren<SidebarWithHeaderProps>) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+        <Box minH="100vh" bg='gray.900'>
             <SidebarContent
                 onClose={() => onClose}
                 display={{ base: 'none', md: 'block' }}
